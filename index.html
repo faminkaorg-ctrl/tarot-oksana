@@ -858,6 +858,88 @@
         }
         @media (max-width: 650px) { .book-wrapper.is-open { transform: translateX(0); } }
 
+        /* === 13. ПОЛНОЦЕННАЯ ИГРА ТАРО (ПРОШЛОЕ / НАСТОЯЩЕЕ / БУДУЩЕЕ) === */
+        .tarot-game-section {
+            padding: 120px 5%;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png'), radial-gradient(circle at center, #130722 0%, #030303 100%);
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid var(--border-glass);
+            min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+
+        /* Космическое свечение на фоне */
+        .tarot-game-section::before {
+            content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 600px; height: 600px; background: radial-gradient(circle, rgba(212,175,55,0.05) 0%, transparent 70%);
+            border-radius: 50%; pointer-events: none; z-index: 0; animation: pulseGlow 4s infinite alternate;
+        }
+        @keyframes pulseGlow { 0% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.9); } 100% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); } }
+
+        .game-container { position: relative; z-index: 2; width: 100%; max-width: 1200px; margin: 0 auto; text-align: center; }
+
+        /* ЭТАП 1: Вступление */
+        .game-intro h2 { font-size: 3rem; color: var(--gold-primary); text-shadow: 0 0 20px rgba(212,175,55,0.4); margin-bottom: 20px; }
+        .game-intro p { font-size: 1.1rem; color: #ccc; max-width: 600px; margin: 0 auto 40px auto; font-weight: 300; }
+
+        /* ЭТАП 2: Игровой стол */
+        .game-stage { display: none; flex-direction: column; align-items: center; animation: fadeIn 1s ease; }
+        
+        .game-instruction { color: var(--gold-light); font-size: 1.2rem; margin-bottom: 40px; letter-spacing: 2px; text-transform: uppercase; font-family: var(--font-heading); }
+
+        /* Слоты для выбранных карт */
+        .altar-slots { display: flex; justify-content: center; gap: 30px; margin-bottom: 60px; flex-wrap: wrap; }
+        .slot {
+            width: 160px; height: 260px; border: 2px dashed rgba(212, 175, 55, 0.4); border-radius: 10px;
+            position: relative; display: flex; justify-content: center; align-items: center;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+        }
+        .slot-label { position: absolute; bottom: -35px; color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; width: 100%; text-align: center; }
+
+        /* Колода для выбора (раскидана по сетке) */
+        .deck-spread { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 900px; }
+        .deck-card {
+            width: 60px; height: 100px; background-image: url('https://images.unsplash.com/photo-1633519183424-81eb16262b90?w=200');
+            background-size: cover; background-position: center; border: 1px solid var(--gold-primary);
+            border-radius: 4px; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s, opacity 0.5s;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.6);
+        }
+        .deck-card:hover { transform: translateY(-10px) scale(1.1); box-shadow: 0 10px 20px rgba(212,175,55,0.5); z-index: 10; border-color: #fff; }
+        .deck-card.picked { opacity: 0; pointer-events: none; transform: translateY(-50px) scale(0.5); }
+
+        /* Анимированные выбранные карты в слотах */
+        .drawn-card {
+            width: 100%; height: 100%; position: absolute; top: 0; left: 0;
+            transform-style: preserve-3d; transition: transform 1s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border-radius: 10px; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+        .drawn-card.revealed { transform: rotateY(180deg) scale(1.05); box-shadow: 0 0 30px rgba(212,175,55,0.4); }
+        .card-face-game { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 10px; border: 2px solid var(--gold-primary); }
+        .card-back-game { background-image: url('https://images.unsplash.com/photo-1633519183424-81eb16262b90?w=400'); background-size: cover; background-position: center; }
+        .card-front-game { transform: rotateY(180deg); background-size: cover; background-position: center; background-color: #111; }
+
+        /* ЭТАП 3: Результат и Воронка продаж */
+        .game-result-area { display: none; margin-top: 50px; text-align: left; background: var(--bg-glass); border: 1px solid var(--border-glass); padding: 40px; border-radius: 12px; backdrop-filter: blur(10px); animation: fadeInUp 1s ease; max-width: 900px; width: 100%; margin-left: auto; margin-right: auto; }
+        .interpretation-block { margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 20px; }
+        .interpretation-block:last-child { border-bottom: none; }
+        .inter-title { color: var(--gold-primary); font-family: var(--font-heading); font-size: 1.3rem; margin-bottom: 5px; }
+        .inter-card-name { color: #fff; font-weight: 600; margin-bottom: 10px; font-size: 1.1rem; }
+        .inter-text { color: #bbb; font-size: 0.95rem; line-height: 1.6; }
+
+        .sales-pitch { margin-top: 40px; text-align: center; padding: 40px; background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, rgba(0,0,0,0.8) 100%); border: 1px dashed var(--gold-primary); border-radius: 8px; }
+        .sales-pitch h3 { color: #fff; font-size: 1.8rem; margin-bottom: 15px; }
+        .sales-pitch p { color: var(--gold-light); margin-bottom: 25px; font-size: 1.05rem; }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        @media (max-width: 768px) {
+            .slot { width: 100px; height: 160px; }
+            .deck-card { width: 45px; height: 75px; }
+            .altar-slots { gap: 15px; }
+            .game-result-area { padding: 20px; }
+        }
+
     </style>
 </head>
 <body>
@@ -1097,28 +1179,50 @@
         </div>
     </section>
 
-    <section id="tarot" class="tarot-interactive">
-        <div class="section-header reveal">
-            <p>Синхронизация</p>
-            <h2>Вытянуть Карту Дня</h2>
-        </div>
-        
-        <div class="tarot-layout">
-            <div class="card-scene" onclick="drawCard()">
-                <div class="card-object" id="interactive-card">
-                    <div class="card-face card-face-front"></div>
-                    <div class="card-face card-face-back" id="card-image-display"></div>
-                </div>
-                <div style="text-align:center; margin-top: 20px;">
-                    <span class="hint-text" id="action-hint">Нажмите на колоду</span>
-                </div>
-            </div>
+    <!-- ИНТЕРАКТИВНЫЙ РАСКЛАД ТАРО -->
+    <section id="tarot-game" class="tarot-game-section">
+        <div class="game-container">
             
-            <div class="reading-content" id="reading-display">
-                <h3 id="reading-title">Ваш Аркан</h3>
-                <p id="reading-text">Сформулируйте свой вопрос, отбросьте лишние мысли и кликните по карте, чтобы получить ответ от пространства.</p>
-                <button class="btn" onclick="drawCard()" id="redraw-btn" style="display:none;">Вытянуть другую</button>
+            <!-- ЭКРАН 1: Вступление -->
+            <div id="game-intro" class="game-intro">
+                <h2>Расклад «Нити Времени»</h2>
+                <p>Прошлое сформировало вас. Настоящее — это ваш выбор прямо сейчас. Будущее — лишь вероятный исход.</p>
+                <p style="color: var(--gold-primary); font-weight: 600; font-size: 1.2rem; margin-bottom: 40px;">Сформулируйте свой вопрос в голове и нажмите кнопку, чтобы перемешать колоду.</p>
+                <button class="btn" style="font-size: 16px; padding: 18px 50px;" onclick="startGame()">Начать Сеанс</button>
             </div>
+
+            <!-- ЭКРАН 2: Выбор карт -->
+            <div id="game-stage" class="game-stage">
+                <h3 class="game-instruction" id="game-instruction">Выберите 1-ю карту (Прошлое)</h3>
+                
+                <div class="altar-slots">
+                    <div class="slot" id="slot-0"><span class="slot-label">Прошлое</span></div>
+                    <div class="slot" id="slot-1"><span class="slot-label">Настоящее</span></div>
+                    <div class="slot" id="slot-2"><span class="slot-label">Будущее</span></div>
+                </div>
+
+                <div class="deck-spread" id="deck-spread">
+                    <!-- Карты генерируются через JS -->
+                </div>
+            </div>
+
+            <!-- ЭКРАН 3: Трактовка и Продажа -->
+            <div id="game-result-area" class="game-result-area">
+                <h2 style="text-align: center; color: var(--gold-primary); margin-bottom: 40px; font-family: var(--font-heading); font-size: 2.5rem;">Ваш Расклад</h2>
+                
+                <div id="interpretations-container">
+                    <!-- Текст подставляется через JS -->
+                </div>
+
+                <!-- БЛОК ПРОДАЖИ (ВОРОНКА) -->
+                <div class="sales-pitch">
+                    <h3>Это лишь вершина айсберга... 👁️</h3>
+                    <p>Алгоритм сайта дает лишь базовое значение энергий. Настоящее Таро — это синтез карт, яснознания и глубокого анализа вашей уникальной ситуации, который не способен сделать ни один код.</p>
+                    <p style="color: #888; font-size: 0.9rem; margin-bottom: 25px;">Вытянули сложную карту? Не знаете, как поступить дальше? Напишите мне лично, и мы разберем вашу ситуацию по молекулам. Я найду выход.</p>
+                    <a href="https://t.me/tarookst" target="_blank" class="btn" style="background: var(--gold-primary); color: #000; box-shadow: 0 0 30px rgba(212,175,55,0.4); font-size: 16px; padding: 18px 40px;">Записаться на Личный Разбор</a>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -1348,98 +1452,6 @@
             carousel.scrollBy({ left: -400, behavior: 'smooth' });
         });
 
-        /* === 4. ЛОГИКА ТАРО (СТАРШИЕ АРКАНЫ) === */
-        // Используем стабильные прямые ссылки на сканы Райдера-Уэйта (Wikimedia)
-        const baseUrl = "https://upload.wikimedia.org/wikipedia/commons/";
-        const majorArcana = [
-            { name: "Шут (0)", img: baseUrl + "9/90/RWS_Tarot_00_Fool.jpg", desc: "Начало нового пути. Карта призывает к спонтанности, доверию Вселенной и готовности шагнуть в неизвестность. Отбросьте страхи, сейчас время рисковать." },
-            { name: "Маг (I)", img: baseUrl + "d/de/RWS_Tarot_01_Magician.jpg", desc: "Абсолютный потенциал. У вас есть все необходимые ресурсы, знания и энергия для достижения цели. Действуйте решительно, вы творец своей реальности." },
-            { name: "Жрица (II)", img: baseUrl + "8/88/RWS_Tarot_02_High_Priestess.jpg", desc: "Голос интуиции. Не торопитесь с активными действиями. Ответ кроется внутри вас. Обращайте внимание на сны, знаки и скрытые мотивы окружающих." },
-            { name: "Императрица (III)", img: baseUrl + "d/d2/RWS_Tarot_03_Empress.jpg", desc: "Период изобилия и роста. Карта сулит успех в творчестве, гармонию в любви и материальное благополучие. Проявляйте заботу и наслаждайтесь процессом." },
-            { name: "Император (IV)", img: baseUrl + "c/c3/RWS_Tarot_04_Emperor.jpg", desc: "Структура и порядок. Для успеха необходимы дисциплина, логика и авторитет. Возьмите ответственность на себя, установите границы и действуйте по плану." },
-            { name: "Иерофант (V)", img: baseUrl + "8/8d/RWS_Tarot_05_Hierophant.jpg", desc: "Мудрость и традиции. Время учиться или обратиться за советом к наставнику. Придерживайтесь общепринятых правил и моральных ценностей." },
-            { name: "Влюбленные (VI)", img: baseUrl + "3/3a/RWS_Tarot_06_Lovers.jpg", desc: "Искренние чувства и важный выбор. Карта указывает на гармоничное партнерство, но также требует принять решение, руководствуясь сердцем, а не только разумом." },
-            { name: "Колесница (VII)", img: baseUrl + "9/9b/RWS_Tarot_07_Chariot.jpg", desc: "Стремительный рывок вперед. Вы сможете преодолеть любые препятствия благодаря силе воли и контролю над эмоциями. Победа близка." },
-            { name: "Сила (VIII)", img: baseUrl + "f/f5/RWS_Tarot_08_Strength.jpg", desc: "Мягкое превосходство. Истинная сила кроется не в агрессии, а в терпении, любви и умении укротить свои внутренние страхи и страсти." },
-            { name: "Отшельник (IX)", img: baseUrl + "4/4d/RWS_Tarot_09_Hermit.jpg", desc: "Время для уединения. Отстранитесь от суеты, чтобы заглянуть внутрь себя. Ответы придут через самопознание и временную изоляцию." },
-            { name: "Колесо Фортуны (X)", img: baseUrl + "3/3c/RWS_Tarot_10_Wheel_of_Fortune.jpg", desc: "Судьбоносные перемены. Запускается новый жизненный цикл. Удача на вашей стороне, примите изменения, которые несет Вселенная." },
-            { name: "Справедливость (XI)", img: baseUrl + "e/e0/RWS_Tarot_11_Justice.jpg", desc: "Объективность и карма. Что посеешь, то и пожнешь. Ситуация разрешится честно и законно. Сохраняйте хладнокровие и рациональность." },
-            { name: "Повешенный (XII)", img: baseUrl + "2/2b/RWS_Tarot_12_Hanged_Man.jpg", desc: "Пауза и переоценка. Ситуация требует взглянуть на вещи под другим углом. Возможна добровольная жертва малым ради чего-то большего." },
-            { name: "Смерть (XIII)", img: baseUrl + "d/d7/RWS_Tarot_13_Death.jpg", desc: "Глубокая трансформация. Старый этап окончательно завершен. Не бойтесь отпустить прошлое — это необходимо для зарождения нового." },
-            { name: "Умеренность (XIV)", img: baseUrl + "f/f5/RWS_Tarot_14_Temperance.jpg", desc: "Баланс и исцеление. Избегайте крайностей. Ситуация требует компромисса, спокойствия и нахождения «золотой середины»." },
-            { name: "Дьявол (XV)", img: baseUrl + "5/55/RWS_Tarot_15_Devil.jpg", desc: "Искушение и зависимости. Вы оказались в плену своих страхов, токсичных привязанностей или жажды власти. Будьте осторожны с манипуляциями." },
-            { name: "Башня (XVI)", img: baseUrl + "5/53/RWS_Tarot_16_Tower.jpg", desc: "Внезапное крушение иллюзий. Старые, нестабильные структуры рушатся. Это кризис, который очистит фундамент для построения настоящей жизни." },
-            { name: "Звезда (XVII)", img: baseUrl + "d/db/RWS_Tarot_17_Star.jpg", desc: "Надежда и вдохновение. После бури наступает ясность. Вы на правильном пути, Вселенная благоволит вашим мечтам. Период исцеления." },
-            { name: "Луна (XVIII)", img: baseUrl + "7/7f/RWS_Tarot_18_Moon.jpg", desc: "Сумерки подсознания. Ситуация неясна, есть скрытые факторы. Остерегайтесь самообмана, страхов и иллюзий. Доверяйте только интуиции." },
-            { name: "Солнце (XIX)", img: baseUrl + "1/17/RWS_Tarot_19_Sun.jpg", desc: "Абсолютный триумф. Период радости, счастья и ясности. Все складывается наилучшим образом. Наслаждайтесь своим успехом." },
-            { name: "Суд (XX)", img: baseUrl + "d/dd/RWS_Tarot_20_Judgment.jpg", desc: "Пробуждение и освобождение. Время подведения итогов и принятия важного, судьбоносного решения. Кармическое возрождение." },
-            { name: "Мир (XXI)", img: baseUrl + "f/ff/RWS_Tarot_21_World.jpg", desc: "Успешное завершение цикла. Вы достигли целостности, гармонии и заслуженной награды. Границы стираются, перед вами открыты все пути." }
-        ];
-
-        let isAnimating = false;
-        let cardIsFlipped = false;
-
-        function drawCard() {
-            if (isAnimating) return;
-            
-            const cardObj = document.getElementById('interactive-card');
-            const readingDisplay = document.getElementById('reading-display');
-            const titleEl = document.getElementById('reading-title');
-            const textEl = document.getElementById('reading-text');
-            const cardImgDisplay = document.getElementById('card-image-display');
-            const hint = document.getElementById('action-hint');
-            const redrawBtn = document.getElementById('redraw-btn');
-
-            isAnimating = true;
-
-            if (!cardIsFlipped) {
-                // Выбираем случайную карту
-                const card = majorArcana[Math.floor(Math.random() * majorArcana.length)];
-                
-                // Подготавливаем картинку на заднюю сторону карты (которая станет передней при перевороте)
-                cardImgDisplay.style.backgroundImage = `url('${card.img}')`;
-                
-                // Скрываем текущий текст
-                readingDisplay.classList.remove('visible');
-                hint.style.display = 'none';
-
-                // Запускаем переворот
-                setTimeout(() => {
-                    cardObj.classList.add('is-flipped');
-                }, 300);
-
-                // После переворота показываем текст
-                setTimeout(() => {
-                    titleEl.textContent = card.name;
-                    textEl.textContent = card.desc;
-                    redrawBtn.style.display = 'inline-block';
-                    readingDisplay.classList.add('visible');
-                    cardIsFlipped = true;
-                    isAnimating = false;
-                }, 1500);
-
-            } else {
-                // Прячем текст
-                readingDisplay.classList.remove('visible');
-                
-                // Переворачиваем карту обратно (рубашкой вверх)
-                setTimeout(() => {
-                    cardObj.classList.remove('is-flipped');
-                }, 400);
-
-                setTimeout(() => {
-                    titleEl.textContent = "Ваш Аркан";
-                    textEl.textContent = "Сформулируйте свой вопрос, отбросьте лишние мысли и кликните по карте, чтобы получить ответ от пространства.";
-                    redrawBtn.style.display = 'none';
-                    hint.style.display = 'inline-block';
-                    hint.textContent = "Нажмите на колоду";
-                    readingDisplay.classList.add('visible');
-                    cardIsFlipped = false;
-                    isAnimating = false;
-                }, 1600);
-            }
-        }
-        
         /* === 5. ЛОГИКА ОТЗЫВОВ === */
         const reviewsData = {
             review1: {
@@ -1794,6 +1806,126 @@
                     leaf.style.zIndex = totalLeaves - leafIndex + 1;
                 }, 300);
             }
+        }
+
+        /* === 13. ЛОГИКА ИГРЫ ТАРО (ПРОШЛОЕ, НАСТОЯЩЕЕ, БУДУЩЕЕ) === */
+        
+        // Массив карт
+        const baseUrlImg = "https://upload.wikimedia.org/wikipedia/commons/";
+        const tarotDeck = [
+            { id: 0, name: "Шут", img: baseUrlImg + "9/90/RWS_Tarot_00_Fool.jpg", past: "В прошлом вы совершили прыжок в неизвестность или начали всё с чистого листа.", present: "Сейчас вы стоите на пороге нового этапа. Доверьтесь интуиции, отбросьте страхи.", future: "Впереди неожиданный поворот судьбы. Будьте готовы к спонтанным решениям." },
+            { id: 1, name: "Маг", img: baseUrlImg + "d/de/RWS_Tarot_01_Magician.jpg", past: "Вы проявили силу воли и заложили мощный фундамент для текущих событий.", present: "У вас есть все ресурсы для победы. Действуйте активно, вы управляете ситуацией.", future: "Ваши задумки реализуются. Вы сможете материализовать желаемое силой мысли." },
+            { id: 2, name: "Жрица", img: baseUrlImg + "8/88/RWS_Tarot_02_High_Priestess.jpg", past: "В прошлом была скрытая тайна или влияние мудрой женщины, определившее ход вещей.", present: "Поставьте логику на паузу. Слушайте интуицию, ответы скрыты внутри вас.", future: "Тайное станет явным. В вашей жизни появится глубокое духовное знание или тайна." },
+            { id: 3, name: "Императрица", img: baseUrlImg + "d/d2/RWS_Tarot_03_Empress.jpg", past: "Период изобилия, заботы или сильного влияния материнской фигуры в прошлом.", present: "Время созидания и роста. Заботьтесь о себе и своих проектах, они принесут плоды.", future: "Вас ждет процветание, материальный комфорт и творческий успех." },
+            { id: 4, name: "Император", img: baseUrlImg + "c/c3/RWS_Tarot_04_Emperor.jpg", past: "Ситуация была жестко структурирована, возможно давление авторитета.", present: "Вам необходима железная дисциплина, логика и контроль над эмоциями.", future: "Стабильность и достижение статуса через упорный труд и ответственность." },
+            { id: 5, name: "Иерофант", img: baseUrlImg + "8/8d/RWS_Tarot_05_Hierophant.jpg", past: "Вы следовали правилам, традициям или чужим советам.", present: "Действуйте строго по закону и морали. Хорошее время для обучения.", future: "Обретение наставника, заключение официального союза или духовный рост." },
+            { id: 6, name: "Влюбленные", img: baseUrlImg + "3/3a/RWS_Tarot_06_Lovers.jpg", past: "В прошлом был сделан важный эмоциональный выбор, который привел вас сюда.", present: "Вы находитесь на развилке. Выбирайте сердцем, а не холодным расчетом.", future: "Гармоничное партнерство, искренняя любовь или правильный выбор." },
+            { id: 7, name: "Колесница", img: baseUrlImg + "9/9b/RWS_Tarot_07_Chariot.jpg", past: "Вы совершили мощный рывок вперед, преодолев серьезные препятствия.", present: "Не останавливайтесь! Возьмите управление жизнью в свои руки, успех близок.", future: "Стремительное развитие событий, переезд или триумфальная победа." },
+            { id: 8, name: "Справедливость", img: baseUrlImg + "e/e0/RWS_Tarot_11_Justice.jpg", past: "Текущая ситуация — это кармическое следствие ваших прошлых решений.", present: "Сохраняйте объективность. Взвешивайте каждый шаг, поступайте по совести.", future: "Все разрешится по справедливости. Получение заслуженной награды или контракта." },
+            { id: 9, name: "Отшельник", img: baseUrlImg + "4/4d/RWS_Tarot_09_Hermit.jpg", past: "Вы прошли через период одиночества или глубокого самопознания.", present: "Отстранитесь от суеты. Вам нужна пауза, чтобы найти свой истинный путь.", future: "Обретение мудрости через уединение. Переоценка ценностей." },
+            { id: 10, name: "Колесо Фортуны", img: baseUrlImg + "3/3c/RWS_Tarot_10_Wheel_of_Fortune.jpg", past: "Случайность или фатальный поворот судьбы кардинально изменил вашу жизнь.", present: "Вы в потоке перемен. Не сопротивляйтесь, удача сейчас на вашей стороне.", future: "Завершение старого цикла. Жизнь закрутится с новой силой, вас ждет удача." },
+            { id: 11, name: "Смерть", img: baseUrlImg + "d/d7/RWS_Tarot_13_Death.jpg", past: "Вы пережили болезненную, но необходимую трансформацию или потерю.", present: "Что-то безвозвратно уходит из жизни. Отпустите это, чтобы освободить место новому.", future: "Глобальные перемены. Полное отмирание старых установок и начало новой жизни." },
+            { id: 12, name: "Дьявол", img: baseUrlImg + "5/55/RWS_Tarot_15_Devil.jpg", past: "Вами руководили страсти, зависимости или токсичные привязанности.", present: "Вы в плену иллюзий или манипуляций. Осторожнее с искушениями и легкими деньгами.", future: "Риск попасть в зависимость от человека или обстоятельств. Теневая сторона выйдет наружу." },
+            { id: 13, name: "Башня", img: baseUrlImg + "5/53/RWS_Tarot_16_Tower.jpg", past: "Внезапный кризис разрушил ваши планы, оставив вас на руинах.", present: "Фундамент вашей жизни нестабилен. Идет разрушение отживших программ.", future: "Внезапные, шокирующие перемены. Разрушение старого необходимо для прорыва." },
+            { id: 14, name: "Звезда", img: baseUrlImg + "d/db/RWS_Tarot_17_Star.jpg", past: "У вас появилась мечта или надежда, которая вела вас вперед.", present: "Период исцеления. Вы на правильном пути, Вселенная благоволит вашим планам.", future: "Исполнение заветного желания, признание талантов, спокойствие и счастье." },
+            { id: 15, name: "Луна", img: baseUrlImg + "7/7f/RWS_Tarot_18_Moon.jpg", past: "Вы прошли через период страхов, иллюзий и обманов.", present: "Ситуация мутная. Не все так, как кажется. Доверяйте только интуиции, а не словам.", future: "Опасность самообмана. Вскроются тайные враги или ваши глубокие подсознательные страхи." },
+            { id: 16, name: "Солнце", img: baseUrlImg + "1/17/RWS_Tarot_19_Sun.jpg", past: "Период абсолютного счастья и ясности заложил светлую энергию.", present: "Вы находитесь на пике энергии! Радуйтесь жизни, все складывается идеально.", future: "Вас ждет триумф, богатство, здоровье и абсолютное счастье. Темная полоса позади." }
+        ];
+
+        let pickedCards = [];
+
+        function startGame() {
+            document.getElementById('game-intro').style.display = 'none';
+            document.getElementById('game-stage').style.display = 'flex';
+            generateDeck();
+        }
+
+        function generateDeck() {
+            const spreadContainer = document.getElementById('deck-spread');
+            spreadContainer.innerHTML = '';
+            
+            for(let i=0; i<22; i++) {
+                const card = document.createElement('div');
+                card.className = 'deck-card';
+                card.onclick = function() { pickCard(this); };
+                spreadContainer.appendChild(card);
+            }
+        }
+
+        function pickCard(cardElement) {
+            if(pickedCards.length >= 3) return;
+            
+            cardElement.classList.add('picked');
+            
+            let randomTarot;
+            do {
+                randomTarot = tarotDeck[Math.floor(Math.random() * tarotDeck.length)];
+            } while (pickedCards.includes(randomTarot));
+            
+            pickedCards.push(randomTarot);
+            const slotIndex = pickedCards.length - 1;
+            
+            renderCardInSlot(randomTarot, slotIndex);
+            
+            const instruction = document.getElementById('game-instruction');
+            if (pickedCards.length === 1) instruction.textContent = "Выберите 2-ю карту (Настоящее)";
+            if (pickedCards.length === 2) instruction.textContent = "Выберите 3-ю карту (Будущее)";
+            
+            if(pickedCards.length === 3) {
+                instruction.textContent = "Карты легли на алтарь. Судьба говорит...";
+                document.getElementById('deck-spread').style.display = 'none';
+                
+                setTimeout(() => {
+                    revealAllCards();
+                }, 1500);
+            }
+        }
+
+        function renderCardInSlot(cardData, index) {
+            const slot = document.getElementById('slot-' + index);
+            const drawnCard = document.createElement('div');
+            drawnCard.className = 'drawn-card';
+            drawnCard.id = 'drawn-card-' + index;
+            
+            drawnCard.innerHTML = `
+                <div class="card-face-game card-back-game"></div>
+                <div class="card-face-game card-front-game" style="background-image: url('${cardData.img}')"></div>
+            `;
+            
+            slot.appendChild(drawnCard);
+        }
+
+        function revealAllCards() {
+            setTimeout(() => document.getElementById('drawn-card-0').classList.add('revealed'), 0);
+            setTimeout(() => document.getElementById('drawn-card-1').classList.add('revealed'), 800);
+            setTimeout(() => document.getElementById('drawn-card-2').classList.add('revealed'), 1600);
+            
+            setTimeout(() => {
+                showInterpretations();
+            }, 3000);
+        }
+
+        function showInterpretations() {
+            const container = document.getElementById('interpretations-container');
+            const positions = ["Прошлое", "Настоящее", "Будущее"];
+            const keys = ["past", "present", "future"];
+            
+            let htmlContent = '';
+            
+            for(let i=0; i<3; i++) {
+                const card = pickedCards[i];
+                htmlContent += `
+                    <div class="interpretation-block">
+                        <div class="inter-title">${positions[i]}: ${card.name}</div>
+                        <div class="inter-text">${card[keys[i]]}</div>
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = htmlContent;
+            document.getElementById('game-result-area').style.display = 'block';
+            
+            document.getElementById('game-result-area').scrollIntoView({behavior: "smooth", block: "start"});
         }
 
     </script>
