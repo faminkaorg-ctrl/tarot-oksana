@@ -1,0 +1,1801 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оксана Тищенко | Эксперт Таро | @тароокс</title>
+    <!-- Подключаем премиальные шрифты -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* === ПЕРЕМЕННЫЕ И БАЗОВЫЕ НАСТРОЙКИ === */
+        :root {
+            --bg-dark: #070908;
+            --bg-glass: rgba(25, 30, 28, 0.6);
+            --gold-primary: #D4AF37;
+            --gold-light: #F9E596;
+            --text-light: #F4F4F4;
+            --text-muted: #A0A5A3;
+            --border-glass: rgba(212, 175, 55, 0.15);
+            --font-heading: 'Cinzel', serif;
+            --font-body: 'Jost', sans-serif;
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(212, 175, 55, 0.03) 0%, transparent 50%);
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            font-weight: 600;
+        }
+
+        /* === АНИМАЦИЯ ПОЯВЛЕНИЯ ПРИ СКРОЛЛЕ === */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* === КНОПКИ === */
+        .btn {
+            display: inline-block;
+            padding: 16px 40px;
+            background: transparent;
+            color: var(--gold-light);
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+            border: 1px solid var(--gold-primary);
+            border-radius: 2px;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--gold-primary);
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .btn:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .btn:hover {
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        /* === НАВИГАЦИЯ === */
+        header {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            padding: 25px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(7, 9, 8, 0.8);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-glass);
+            transition: padding 0.4s ease;
+        }
+
+        header.scrolled {
+            padding: 15px 5%;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 24px;
+            color: var(--text-light);
+            text-decoration: none;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .logo span {
+            color: var(--gold-primary);
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 40px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: var(--gold-light);
+        }
+
+        /* === ГЛАВНЫЙ ЭКРАН (HERO) === */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+            background: url('https://images.unsplash.com/photo-1618365908648-e71bd5716cba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(7,9,8,0.3) 0%, rgba(7,9,8,1) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 5vw;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: var(--text-light);
+            text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        /* === СЕКЦИЯ ОБ АВТОРЕ === */
+        .about {
+            padding: 120px 5%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            filter: grayscale(20%) contrast(110%);
+            z-index: 2;
+            position: relative;
+        }
+
+        /* Декоративная рамка позади фото */
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: 30px; left: -30px;
+            width: 100%; height: 100%;
+            border: 1px solid var(--gold-primary);
+            z-index: 1;
+        }
+
+        .about-text h2 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            color: var(--gold-light);
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        /* === СЕКЦИЯ РАСКЛАДОВ (GLASSMORPHISM CARDS) === */
+        .services {
+            padding: 100px 5%;
+            background-color: #050605;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--gold-primary);
+            margin-bottom: 15px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            padding: 50px 30px;
+            text-align: center;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transform: skewX(-25deg);
+            transition: 0.8s;
+        }
+
+        .service-card:hover::after {
+            left: 150%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--text-light);
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 300;
+        }
+
+        /* === YOUTUBE СЛАЙДЕР === */
+        .youtube-section {
+            padding: 120px 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            max-width: 1400px;
+            margin: 0 auto 30px auto;
+        }
+
+        .slider-btn {
+            background: transparent;
+            border: 1px solid var(--border-glass);
+            color: var(--gold-primary);
+            width: 45px; height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex; justify-content: center; align-items: center;
+            transition: var(--transition);
+        }
+
+        .slider-btn:hover {
+            background: var(--gold-primary);
+            color: var(--bg-dark);
+        }
+
+        .carousel-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .carousel-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .carousel-track {
+            display: flex;
+            gap: 30px;
+            padding-bottom: 20px;
+        }
+
+        .video-card {
+            min-width: 380px;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .video-card:hover {
+            border-color: var(--gold-primary);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .play-btn {
+            position: absolute;
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 60px; height: 60px;
+            background: rgba(0,0,0,0.5);
+            border: 2px solid var(--text-light);
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            color: var(--text-light);
+            font-size: 20px;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+        }
+
+        .video-card:hover .play-btn {
+            background: var(--gold-primary);
+            border-color: var(--gold-primary);
+            color: var(--bg-dark);
+        }
+
+        .video-info {
+            padding: 25px;
+        }
+
+        .video-info h4 {
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            color: var(--text-light);
+        }
+
+        /* === ИНТЕРАКТИВ: КАРТА ДНЯ === */
+        .tarot-interactive {
+            padding: 120px 5%;
+            background: radial-gradient(circle at center, #111513 0%, var(--bg-dark) 100%);
+            border-top: 1px solid var(--border-glass);
+        }
+
+        .tarot-layout {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        /* 3D Сцена для карты */
+        .card-scene {
+            width: 300px;
+            height: 500px;
+            perspective: 2000px;
+            cursor: pointer;
+        }
+
+        .card-object {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            border-radius: 12px;
+        }
+
+        .card-object.is-flipped {
+            transform: rotateY(180deg) scale(1.05);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 12px;
+            background-size: cover;
+            background-position: center;
+            border: 2px solid var(--gold-primary);
+        }
+
+        .card-face-front {
+            /* Рубашка карты (видима изначально, но в коде это front div, чтобы при rotateY(180) показать саму картинку) */
+            background-image: url('https://images.unsplash.com/photo-1633519183424-81eb16262b90?auto=format&fit=crop&w=400&q=80');
+        }
+
+        .card-face-back {
+            /* Лицевая сторона карты с Арканом */
+            transform: rotateY(180deg);
+            background-color: #fff;
+        }
+
+        .reading-content {
+            flex: 1;
+            min-width: 300px;
+            opacity: 0;
+            transform: translateX(30px);
+            transition: all 0.8s ease;
+        }
+
+        .reading-content.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reading-content h3 {
+            font-size: 2.5rem;
+            color: var(--gold-light);
+            margin-bottom: 20px;
+        }
+
+        .reading-content p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .hint-text {
+            color: var(--gold-primary);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 20px;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+
+        /* === НОВЫЕ БЛОКИ: ОТЗЫВЫ И МОДАЛКИ (КВИЗ) === */
+        
+        /* Кнопка в карточках услуг */
+        .service-card .btn { margin-top: 25px; width: 100%; }
+
+        /* Секция отзывов */
+        .reviews { padding: 100px 5%; background-color: var(--bg-dark); }
+        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; max-width: 1400px; margin: 0 auto; }
+        .review-card { background: var(--bg-glass); border: 1px solid var(--border-glass); padding: 40px 30px; border-radius: 8px; backdrop-filter: blur(10px); cursor: pointer; transition: var(--transition); position: relative; }
+        .review-card:hover { border-color: var(--gold-primary); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .review-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid rgba(212, 175, 55, 0.1); padding-bottom: 15px; }
+        .reviewer-info h4 { font-size: 1.2rem; color: var(--gold-light); display: flex; align-items: center; gap: 8px; }
+        .verified-badge { color: #00C851; font-size: 1.1rem; } /* Зеленая галочка */
+        .review-title { font-size: 1.1rem; color: var(--text-light); margin-bottom: 15px; font-weight: 500; }
+        .review-preview { color: var(--text-muted); font-size: 0.95rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .read-more { color: var(--gold-primary); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 15px; display: inline-block; }
+
+        /* Модальные окна (Общие стили) */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; padding: 20px; }
+        .modal-overlay.active { opacity: 1; pointer-events: all; }
+        .modal-content { background: #0a0f0d; border: 1px solid var(--gold-primary); border-radius: 8px; max-width: 600px; width: 100%; padding: 40px; position: relative; transform: translateY(30px); transition: transform 0.4s ease; box-shadow: 0 0 40px rgba(212, 175, 55, 0.2); max-height: 90vh; overflow-y: auto; }
+        .modal-overlay.active .modal-content { transform: translateY(0); }
+        .close-modal { position: absolute; top: 15px; right: 20px; color: var(--text-muted); font-size: 28px; cursor: pointer; transition: color 0.3s; line-height: 1; }
+        .close-modal:hover { color: var(--gold-primary); }
+
+        /* Стили Квиза */
+        #quiz-title { color: var(--gold-primary); margin-bottom: 10px; font-size: 2rem; text-align: center; }
+        .quiz-progress { height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; margin-bottom: 30px; overflow: hidden; }
+        .quiz-progress-bar { height: 100%; background: var(--gold-primary); width: 0%; transition: width 0.4s ease; }
+        .quiz-question { font-size: 1.2rem; margin-bottom: 25px; color: var(--text-light); text-align: center; }
+        .quiz-options { display: flex; flex-direction: column; gap: 15px; }
+        .quiz-option { padding: 15px 20px; background: var(--bg-glass); border: 1px solid var(--border-glass); border-radius: 4px; color: var(--text-muted); cursor: pointer; transition: var(--transition); text-align: center; }
+        .quiz-option:hover { background: rgba(212, 175, 55, 0.1); border-color: var(--gold-primary); color: var(--gold-light); }
+        
+        /* Финальный экран квиза */
+        .quiz-success { text-align: center; display: none; }
+        .quiz-success h3 { color: var(--gold-primary); font-size: 1.8rem; margin-bottom: 15px; }
+        .quiz-success p { color: var(--text-muted); margin-bottom: 30px; }
+        .telegram-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 40px; background: #2AABEE; color: #fff; font-family: var(--font-body); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; border-radius: 4px; transition: background 0.3s, transform 0.3s; }
+        .telegram-btn:hover { background: #2298D6; transform: scale(1.05); color: #fff;}
+        .telegram-btn svg { width: 24px; height: 24px; fill: #fff; }
+
+        /* Стили модалки отзыва */
+        .review-full-text { color: #ddd; font-size: 1.05rem; line-height: 1.8; margin-top: 20px; }
+        .review-full-text span { color: var(--gold-primary); font-weight: 600; display: block; margin-top: 20px; margin-bottom: 5px; }
+
+        /* === ФУТЕР === */
+        footer {
+            padding: 60px 5%;
+            background: #000;
+            text-align: center;
+            border-top: 1px solid var(--border-glass);
+        }
+
+        .social-links {
+            margin-bottom: 30px;
+        }
+
+        .social-links a {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            text-decoration: none;
+            margin: 0 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--gold-primary);
+        }
+
+        .copyright {
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        /* === АДАПТИВ === */
+        @media (max-width: 992px) {
+            .about, .tarot-layout { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+            .about-image { order: -1; }
+            nav { display: none; /* Для мобильных можно добавить бургер-меню, здесь упрощаем */ }
+            .hero h1 { font-size: 3rem; }
+            .reading-content { text-align: center; }
+        }
+        /* === ИНТЕРАКТИВ И ВОРОНКА (ЛУНА, МАТРИЦА, КОЛЕСО, SOCIAL PROOF) === */
+
+        /* 1. Фаза Луны (Виджет в шапке) */
+        .moon-widget { display: flex; align-items: center; gap: 10px; background: rgba(212, 175, 55, 0.05); border: 1px solid rgba(212, 175, 55, 0.2); padding: 8px 15px; border-radius: 30px; font-size: 0.85rem; color: var(--gold-light); backdrop-filter: blur(5px); }
+        .moon-icon { font-size: 1.2rem; filter: drop-shadow(0 0 5px var(--gold-primary)); }
+        .moon-text { display: flex; flex-direction: column; line-height: 1.2; }
+        .moon-status { font-weight: 600; color: #fff; }
+        .moon-advice { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+
+        /* 2. Индикатор живой очереди (Social Proof) */
+        .social-proof-popup { position: fixed; bottom: 30px; left: -400px; background: rgba(10, 15, 13, 0.95); border-left: 3px solid var(--gold-primary); padding: 15px 20px; border-radius: 0 8px 8px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.8); display: flex; align-items: center; gap: 15px; z-index: 9999; transition: left 0.6s cubic-bezier(0.25, 1, 0.5, 1); backdrop-filter: blur(10px); }
+        .social-proof-popup.show { left: 0; }
+        .sp-icon { background: rgba(212, 175, 55, 0.1); width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.2rem; }
+        .sp-text h5 { color: #fff; font-size: 0.9rem; margin-bottom: 3px; font-family: var(--font-body); }
+        .sp-text p { color: var(--text-muted); font-size: 0.75rem; }
+
+        /* 3. Матрица Судьбы (Калькулятор) */
+        .matrix-section { padding: 100px 5%; background: linear-gradient(to bottom, #050605, var(--bg-dark)); }
+        .matrix-container { max-width: 800px; margin: 0 auto; background: var(--bg-glass); border: 1px solid var(--border-glass); padding: 50px; border-radius: 12px; text-align: center; position: relative; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .matrix-container::before { content: 'XXII'; position: absolute; top: -20px; right: -20px; font-size: 150px; color: rgba(212, 175, 55, 0.03); font-family: var(--font-heading); line-height: 1; pointer-events: none; }
+        .matrix-input-group { display: flex; justify-content: center; gap: 15px; margin: 30px 0; flex-wrap: wrap; }
+        .matrix-input { background: transparent; border: 1px solid var(--gold-primary); color: #fff; padding: 15px 20px; font-size: 1.2rem; font-family: var(--font-body); text-align: center; width: 200px; border-radius: 4px; outline: none; transition: box-shadow 0.3s; }
+        .matrix-input:focus { box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
+        .matrix-result { margin-top: 30px; display: none; animation: fadeInUp 0.6s ease; }
+        .matrix-arcan { font-size: 2.5rem; color: var(--gold-primary); font-family: var(--font-heading); margin-bottom: 15px; text-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
+        .matrix-desc { color: var(--text-light); font-size: 1.1rem; line-height: 1.6; margin-bottom: 25px; }
+
+        /* 4. Колесо Фортуны (Плавающая кнопка и Модалка) */
+        .wheel-floating-btn { position: fixed; bottom: 30px; right: 30px; width: 70px; height: 70px; background: radial-gradient(circle, #D4AF37 0%, #997A15 100%); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; cursor: pointer; box-shadow: 0 0 25px rgba(212, 175, 55, 0.8); z-index: 1000; animation: floatSpin 4s infinite linear; border: 2px solid #fff; }
+        .wheel-floating-btn::after { content: 'Бонус'; position: absolute; bottom: -25px; font-size: 12px; color: var(--gold-primary); text-transform: uppercase; font-family: var(--font-body); font-weight: 600; letter-spacing: 1px; animation: none; text-shadow: 0 2px 5px #000; }
+        @keyframes floatSpin { 0% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-10px) rotate(180deg); } 100% { transform: translateY(0) rotate(360deg); } }
+        
+        /* Модалка с космическим фоном */
+        .wheel-modal-content { 
+            background: radial-gradient(circle at center, #1a0b2e 0%, #050505 100%);
+            background-image: url('https://www.transparenttextures.com/patterns/stardust.png'), radial-gradient(circle at center, #130722 0%, #030303 100%);
+            border: 2px solid var(--gold-primary); 
+            padding: 50px 30px; 
+            text-align: center; 
+            max-width: 550px; 
+            box-shadow: inset 0 0 60px rgba(0,0,0,0.9), 0 0 40px rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+        }
+        
+        .wheel-container { position: relative; width: 320px; height: 320px; margin: 50px auto 40px auto; }
+        
+        /* Золотой кристалл-указатель */
+        .wheel-pointer { 
+            position: absolute; 
+            top: -20px; left: 50%; 
+            transform: translateX(-50%); 
+            width: 0; height: 0; 
+            border-left: 18px solid transparent; 
+            border-right: 18px solid transparent; 
+            border-top: 45px solid var(--gold-primary); 
+            z-index: 10; 
+            filter: drop-shadow(0 5px 15px rgba(212, 175, 55, 0.8)); 
+        }
+        
+        /* Само колесо (Мистические градиенты) */
+        .wheel { 
+            width: 100%; height: 100%; 
+            border-radius: 50%; 
+            background: conic-gradient( 
+                #170b2b 0deg 60deg, 
+                #281647 60deg 120deg, 
+                #170b2b 120deg 180deg, 
+                #281647 180deg 240deg, 
+                #170b2b 240deg 300deg, 
+                #281647 300deg 360deg 
+            ); 
+            border: 6px solid #111; 
+            box-shadow: 0 0 0 3px var(--gold-primary), 0 0 40px rgba(212, 175, 55, 0.6), inset 0 0 30px rgba(0,0,0,0.8); 
+            position: relative; 
+            transition: transform 5s cubic-bezier(0.2, 0.8, 0.1, 1); 
+            overflow: hidden; 
+        }
+        
+        /* Золотая орбита внутри колеса */
+        .wheel::before {
+            content: ''; position: absolute;
+            top: 15px; left: 15px; right: 15px; bottom: 15px;
+            border: 1px dashed rgba(212, 175, 55, 0.5);
+            border-radius: 50%; z-index: 1; pointer-events: none;
+        }
+
+        /* Центр колеса (Солнце) */
+        .wheel::after { 
+            content: '👁️'; position: absolute; 
+            top: 50%; left: 50%; transform: translate(-50%, -50%); 
+            width: 50px; height: 50px; 
+            background: radial-gradient(circle, #f9e596 0%, #d4af37 100%); 
+            border-radius: 50%; border: 3px solid #222; 
+            z-index: 5; box-shadow: 0 0 20px #000;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 20px;
+        }
+        
+        /* Текст на секторах колеса */
+        .wheel-slice { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            transform-origin: 50% 50%; text-align: center; 
+            padding-top: 30px; 
+            font-family: var(--font-heading); font-size: 13px; font-weight: 600; 
+            color: var(--gold-light); text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+            z-index: 2; line-height: 1.3; letter-spacing: 1px;
+        }
+        
+        .wheel-slice:nth-child(1) { transform: rotate(30deg); }
+        .wheel-slice:nth-child(2) { transform: rotate(90deg); color: #fff; }
+        .wheel-slice:nth-child(3) { transform: rotate(150deg); }
+        .wheel-slice:nth-child(4) { transform: rotate(210deg); color: #fff; }
+        .wheel-slice:nth-child(5) { transform: rotate(270deg); }
+        .wheel-slice:nth-child(6) { transform: rotate(330deg); color: #fff; }
+
+        .wheel-result { display: none; margin-top: 25px; animation: fadeInUp 0.6s ease; }
+        .wheel-result h3 { color: var(--gold-primary); font-size: 1.6rem; margin-bottom: 10px; text-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
+
+        /* === 11. УЛЬТРА-РЕАЛИСТИЧНАЯ 3D-КНИГА ТАРО === */
+        .book-section {
+            padding: 120px 5%;
+            background: radial-gradient(circle at center, #0a0514 0%, var(--bg-dark) 100%);
+            display: flex; flex-direction: column; align-items: center; overflow: hidden;
+            border-top: 1px solid var(--border-glass);
+        }
+
+        .book-scene {
+            width: 100%; height: 650px;
+            display: flex; justify-content: center; align-items: center;
+            perspective: 2000px; /* Усиленная глубина */
+            margin-top: 40px;
+        }
+
+        .book-wrapper {
+            position: relative; width: 420px; height: 580px;
+            transform-style: preserve-3d;
+            transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+            transform: translateX(0);
+            /* Тень от всей книги на столе */
+            box-shadow: 20px 30px 50px rgba(0,0,0,0.8);
+            border-radius: 5px 15px 15px 5px;
+        }
+
+        .book-wrapper.is-open { transform: translateX(210px) translateY(-10px) rotateX(5deg); }
+
+        .book-leaf {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            transform-style: preserve-3d; transform-origin: left center;
+            transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+            border-radius: 3px 12px 12px 3px;
+        }
+        .book-leaf.flipped { transform: rotateY(-180deg); }
+
+        .leaf-page {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            backface-visibility: hidden; -webkit-backface-visibility: hidden;
+            border-radius: 3px 12px 12px 3px;
+            /* Текстура матовой черной бумаги для внутренних страниц */
+            background-color: #121013;
+            background-image: url('https://www.transparenttextures.com/patterns/black-paper.png');
+            border: 1px solid #2a2230;
+            overflow: hidden;
+        }
+
+        /* Имитация объема страниц (толщина) */
+        .leaf-front { transform: rotateY(0deg); box-shadow: inset -5px 0 10px rgba(0,0,0,0.5); }
+        .leaf-back { transform: rotateY(180deg); border-radius: 12px 3px 3px 12px; box-shadow: inset 5px 0 10px rgba(0,0,0,0.5); }
+
+        /* Тень от корешка (Сгиб страницы) - РЕАЛИЗМ */
+        .leaf-front::after { content: ''; position: absolute; top: 0; bottom: 0; left: 0; width: 50px; background: linear-gradient(to right, rgba(0,0,0,0.9), rgba(0,0,0,0)); pointer-events: none; z-index: 10; }
+        .leaf-back::after { content: ''; position: absolute; top: 0; bottom: 0; right: 0; width: 50px; background: linear-gradient(to left, rgba(0,0,0,0.9), rgba(0,0,0,0)); pointer-events: none; z-index: 10; }
+
+        /* === ОБЛОЖКА: КОЖА И ЗОЛОТО === */
+        .cover-front {
+            background-color: #0d0812;
+            background-image: url('https://www.transparenttextures.com/patterns/leather.png'), radial-gradient(circle at center, #1b1026 0%, #060309 100%);
+            border: none;
+            /* Сложные тени для тиснения и рамки */
+            box-shadow: inset 0 0 0 8px rgba(0,0,0,0.8), inset 0 0 0 10px var(--gold-primary), inset 20px 0 50px rgba(0,0,0,0.9), 5px 5px 15px rgba(0,0,0,0.5);
+            cursor: pointer;
+        }
+        .cover-back {
+            background-color: #0d0812;
+            background-image: url('https://www.transparenttextures.com/patterns/leather.png'), radial-gradient(circle at center, #1b1026 0%, #060309 100%);
+            box-shadow: inset 0 0 0 8px rgba(0,0,0,0.8), inset 0 0 0 10px var(--gold-primary), inset -20px 0 50px rgba(0,0,0,0.9);
+        }
+
+        /* Объемный корешок обложки */
+        .cover-front::before { content: ''; position: absolute; top: 0; bottom: 0; left: 0; width: 35px; background: linear-gradient(to right, rgba(255,255,255,0.1), rgba(0,0,0,0.6) 15%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.9)); z-index: 11; pointer-events: none; border-right: 1px solid rgba(0,0,0,0.8); }
+
+        /* Декоративные золотые углы обложки */
+        .cover-ornament { position: absolute; width: 50px; height: 50px; border: 2px solid var(--gold-primary); z-index: 5; }
+        .ornament-tl { top: 15px; left: 15px; border-bottom: none; border-right: none; }
+        .ornament-tr { top: 15px; right: 15px; border-bottom: none; border-left: none; }
+        .ornament-bl { bottom: 15px; left: 15px; border-top: none; border-right: none; }
+        .ornament-br { bottom: 15px; right: 15px; border-top: none; border-left: none; }
+
+        .magic-emblem {
+            position: absolute; top: 120px; left: 50%; transform: translateX(-50%);
+            width: 100px; height: 100px; border-radius: 50%;
+            border: 2px dashed var(--gold-primary);
+            display: flex; justify-content: center; align-items: center;
+            font-size: 40px; box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+            background: rgba(0,0,0,0.5);
+        }
+
+        .cover-title { position: absolute; bottom: 120px; left: 0; width: 100%; text-align: center; z-index: 5; }
+        .cover-title h1 {
+            font-family: var(--font-heading); font-size: 3.5rem; margin-bottom: 5px;
+            /* Эффект золотой фольги на тексте */
+            color: transparent; background: linear-gradient(to bottom, #f9e596, #d4af37, #997A15);
+            -webkit-background-clip: text; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.9));
+        }
+        .cover-title p { color: var(--gold-primary); font-size: 1rem; text-transform: uppercase; letter-spacing: 4px; font-weight: 600; }
+        .cover-hint { display: block; margin-top: 40px; font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 2px; animation: pulse 2s infinite; }
+
+        /* === ВНУТРЕННИЙ КОНТЕНТ СТРАНИЦ === */
+        .page-content {
+            position: relative; z-index: 2; padding: 50px 40px; color: var(--text-light);
+            display: flex; flex-direction: column; height: 100%; text-align: center;
+        }
+
+        /* Рамки для звездных картинок на страницах */
+        .page-illustration {
+            width: 100%; height: 180px; background-size: cover; background-position: center;
+            border: 2px solid var(--gold-primary); border-radius: 4px; margin-bottom: 25px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.8); position: relative;
+        }
+        /* Внутренняя рамочка для картинки */
+        .page-illustration::after {
+            content: ''; position: absolute; top: 5px; left: 5px; right: 5px; bottom: 5px;
+            border: 1px solid rgba(212, 175, 55, 0.5); pointer-events: none;
+        }
+
+        .page-content h3 { color: var(--gold-primary); font-size: 1.6rem; margin-bottom: 15px; font-family: var(--font-heading); }
+        .page-content p { font-size: 0.95rem; line-height: 1.6; color: #bbb; margin-bottom: 15px; font-weight: 300; text-align: justify; }
+        .page-number { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-size: 12px; color: rgba(212, 175, 55, 0.6); font-family: var(--font-heading); }
+
+        .book-controls { display: flex; gap: 20px; margin-top: 40px; opacity: 0; pointer-events: none; transition: opacity 1s; }
+        .book-controls.visible { opacity: 1; pointer-events: all; }
+        .book-btn { background: #0d0812; border: 1px solid var(--gold-primary); color: var(--gold-primary); padding: 12px 35px; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; cursor: pointer; transition: var(--transition); border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .book-btn:hover { background: var(--gold-primary); color: #000; box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
+
+        @media (max-width: 900px) {
+            .book-scene { height: 500px; perspective: 1200px; }
+            .book-wrapper { width: 320px; height: 460px; }
+            .book-wrapper.is-open { transform: translateX(160px); }
+            .page-content { padding: 30px 20px; }
+            .page-illustration { height: 130px; }
+            .page-content h3 { font-size: 1.3rem; }
+            .page-content p { font-size: 0.8rem; }
+            .magic-emblem { top: 70px; width: 80px; height: 80px; font-size: 30px; }
+            .cover-title { bottom: 80px; }
+            .cover-title h1 { font-size: 2.8rem; }
+        }
+        @media (max-width: 650px) { .book-wrapper.is-open { transform: translateX(0); } }
+
+    </style>
+</head>
+<body>
+
+    <header id="header">
+        <a href="#" class="logo">Таро<span>Окс</span></a>
+        <div class="moon-widget" id="moon-widget">
+            <div class="moon-icon" id="moon-icon">🌕</div>
+            <div class="moon-text">
+                <span class="moon-status" id="moon-status">Полнолуние</span>
+                <span class="moon-advice" id="moon-advice">Энергия на пике. Расклады на будущее.</span>
+            </div>
+        </div>
+        <nav>
+            <a href="#about">Обо мне</a>
+            <a href="#services">Расклады</a>
+            <a href="#youtube">Видео</a>
+            <a href="#tarot">Карта Дня</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content reveal">
+            <h1>Искусство чтения судьбы</h1>
+            <p>Индивидуальная аналитика, глубокий разбор отношений и бизнеса от Оксаны Тищенко. Точные ответы на самые сложные вопросы.</p>
+            <a href="#tarot" class="btn">Получить подсказку</a>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="about-text reveal">
+            <h2>Оксана Тищенко</h2>
+            <p>Мой подход далек от стереотипных гаданий. Таро для меня — это точный инструмент психоанализа и считывания энергоинформационного поля. Я помогаю людям увидеть истинные причины их проблем и найти выход из кризисных ситуаций.</p>
+            <p>Основатель YouTube канала <strong>@тароокс</strong>. Я провожу детальные индивидуальные консультации, где мы разбираем вашу ситуацию «по косточкам» — будь то сложный развод, тупик в карьере или поиск предназначения.</p>
+            <a href="https://www.youtube.com/@%D1%82%D0%B0%D1%80%D0%BE%D0%BE%D0%BA%D1%81" target="_blank" class="btn" style="margin-top: 20px;">Мой YouTube Канал</a>
+        </div>
+        <div class="about-image reveal">
+            <!-- Заглушка, сюда отлично встанет реальное фото Оксаны -->
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Оксана Тищенко">
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="section-header reveal">
+            <p>Услуги</p>
+            <h2>Индивидуальные Расклады</h2>
+        </div>
+        <div class="services-grid">
+            <div class="service-card reveal">
+                <h3>Расклад на Отношения</h3>
+                <p>Глубокий срез мыслей, чувств и намерений партнера. Анализ совместимости, скрытых обид и перспектив брака. Узнайте, что он думает на самом деле.</p>
+                <button class="btn" onclick="openQuiz('relationships')">Обратиться</button>
+            </div>
+            <div class="service-card reveal">
+                <h3>Финансовый Расклад</h3>
+                <p>Аудит вашего денежного канала. Где заблокирована энергия, какую сферу деятельности выбрать, перспективы инвестиций и роста дохода.</p>
+                <button class="btn" onclick="openQuiz('finance')">Обратиться</button>
+            </div>
+            <div class="service-card reveal">
+                <h3>Расклад на Бизнес</h3>
+                <p>Оценка рисков, выбор ниши, выявление ненадежных партнеров и сотрудников. Стратегия вывода бизнеса из кризиса и масштабирования.</p>
+                <button class="btn" onclick="openQuiz('business')">Обратиться</button>
+            </div>
+            <div class="service-card reveal">
+                <h3>Расклад на Любовь</h3>
+                <p>Для тех, кто в поиске. Анализ причин одиночества, разбор повторяющихся сценариев и диагностика кармических блоков на личную жизнь.</p>
+                <button class="btn" onclick="openQuiz('love')">Обратиться</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="reviews" class="reviews">
+        <div class="section-header reveal">
+            <p>Реальные истории</p>
+            <h2>Отзывы Клиентов</h2>
+        </div>
+        <div class="reviews-grid">
+            <div class="review-card reveal" onclick="openReview('review1')">
+                <div class="review-header">
+                    <div class="reviewer-info">
+                        <h4>Елена, 34 года <span class="verified-badge">✔</span></h4>
+                        <p style="color: #666; font-size: 12px;">Подтвержденный клиент</p>
+                    </div>
+                </div>
+                <h3 class="review-title">«Муж внезапно подал на развод...»</h3>
+                <div class="review-preview">Мы были в браке 8 лет, всё было идеально. А потом он просто собрал вещи и сказал, что уходит. Я была в отчаянии и не понимала, в чем дело. Оксана сделала глубокий расклад и увидела сильнейшее магическое воздействие со стороны...</div>
+                <span class="read-more">Читать историю полностью &#8594;</span>
+            </div>
+            
+            <div class="review-card reveal" onclick="openReview('review2')">
+                <div class="review-header">
+                    <div class="reviewer-info">
+                        <h4>Михаил, 41 год <span class="verified-badge">✔</span></h4>
+                        <p style="color: #666; font-size: 12px;">Подтвержденный клиент</p>
+                    </div>
+                </div>
+                <h3 class="review-title">«Бизнес летел в пропасть, огромные долги»</h3>
+                <div class="review-preview">Моя логистическая компания начала нести огромные убытки. Конкуренты давили, сделки срывались одна за другой. Я обратился к Оксане от безысходности, не особо веря в карты. Но то, что она мне сказала, повергло меня в шок...</div>
+                <span class="read-more">Читать историю полностью &#8594;</span>
+            </div>
+
+            <div class="review-card reveal" onclick="openReview('review3')">
+                <div class="review-header">
+                    <div class="reviewer-info">
+                        <h4>Анна, 28 лет <span class="verified-badge">✔</span></h4>
+                        <p style="color: #666; font-size: 12px;">Подтвержденный клиент</p>
+                    </div>
+                </div>
+                <h3 class="review-title">«Сценарий токсичных отношений»</h3>
+                <div class="review-preview">Я постоянно притягивала к себе абьюзеров. Каждый новый парень был копией предыдущего: манипуляции, слезы, расставание. Оксана сделала матрицу судьбы и нашла жесткий кармический узел по женской линии...</div>
+                <span class="read-more">Читать историю полностью &#8594;</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal-overlay" id="quiz-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('quiz-modal')">&times;</span>
+            
+            <div id="quiz-container">
+                <h2 id="quiz-title">Расклад</h2>
+                <div class="quiz-progress"><div class="quiz-progress-bar" id="quiz-progress-bar"></div></div>
+                
+                <h3 class="quiz-question" id="quiz-question">Загрузка...</h3>
+                <div class="quiz-options" id="quiz-options">
+                    </div>
+            </div>
+
+            <div class="quiz-success" id="quiz-success">
+                <h3>Заявка сформирована!</h3>
+                <p>Я получила предварительные данные о вашей ситуации. Свяжитесь со мной в Telegram, чтобы мы обсудили детали и выбрали время для глубокого расклада.</p>
+                <a href="https://t.me/tarookst" target="_blank" class="telegram-btn">
+                    <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.94z"/></svg>
+                    Написать Оксане
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="review-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('review-modal')">&times;</span>
+            <div class="review-header">
+                <div class="reviewer-info">
+                    <h4 id="modal-reviewer-name">Имя <span class="verified-badge">✔</span></h4>
+                </div>
+            </div>
+            <h2 id="modal-review-title" style="color: var(--gold-primary); margin-bottom: 20px; font-size: 1.5rem;">Заголовок</h2>
+            <div id="modal-review-text" class="review-full-text">
+                Текст
+            </div>
+        </div>
+    </div>
+
+    <section id="youtube" class="youtube-section">
+        <div class="section-header reveal">
+            <p>Медиа</p>
+            <h2>Новые Видео</h2>
+        </div>
+        
+        <div class="slider-controls reveal">
+            <button class="slider-btn" id="btn-prev">&#8592;</button>
+            <button class="slider-btn" id="btn-next">&#8594;</button>
+        </div>
+
+        <div class="carousel-container" id="carousel">
+            <div class="carousel-track">
+                <!-- Карточка Видео 1 -->
+                <div class="video-card">
+                    <div class="video-thumbnail" style="background-image: url('https://i.ytimg.com/vi/W4vP_Xv_XF4/hqdefault.jpg');">
+                        <div class="play-btn">&#9658;</div>
+                    </div>
+                    <div class="video-info">
+                        <h4>Что он думает о вас прямо сейчас? Вся правда.</h4>
+                    </div>
+                </div>
+                <!-- Карточка Видео 2 -->
+                <div class="video-card">
+                    <div class="video-thumbnail" style="background-image: url('https://i.ytimg.com/vi/7j5R0Kq7Y3U/hqdefault.jpg');">
+                        <div class="play-btn">&#9658;</div>
+                    </div>
+                    <div class="video-info">
+                        <h4>Кармический узел. Почему вы встретились?</h4>
+                    </div>
+                </div>
+                <!-- Карточка Видео 3 -->
+                <div class="video-card">
+                    <div class="video-thumbnail" style="background-image: url('https://i.ytimg.com/vi/xH2T4S3_xM8/hqdefault.jpg');">
+                        <div class="play-btn">&#9658;</div>
+                    </div>
+                    <div class="video-info">
+                        <h4>Финансовый прорыв. Как открыть денежный поток?</h4>
+                    </div>
+                </div>
+                <!-- Карточка Видео 4 -->
+                <div class="video-card">
+                    <div class="video-thumbnail" style="background-image: url('https://i.ytimg.com/vi/0p_mD6mC_f0/hqdefault.jpg');">
+                        <div class="play-btn">&#9658;</div>
+                    </div>
+                    <div class="video-info">
+                        <h4>Ваше будущее на ближайший месяц.</h4>
+                    </div>
+                </div>
+                 <!-- Карточка Видео 5 -->
+                 <div class="video-card">
+                    <div class="video-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1600326445582-71c1b18d8e17?w=600&q=80');">
+                        <div class="play-btn">&#9658;</div>
+                    </div>
+                    <div class="video-info">
+                        <h4>Любовный треугольник. Кого он выберет?</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="matrix" class="matrix-section">
+        <div class="section-header reveal">
+            <p>Глубокий анализ</p>
+            <h2>Аркан Личности</h2>
+        </div>
+        <div class="matrix-container reveal">
+            <h3>Узнай свою главную энергию по дате рождения</h3>
+            <p style="color: var(--text-muted); margin-top: 10px;">Этот аркан определяет ваши таланты, скрытые страхи и кармические задачи на это воплощение.</p>
+            
+            <div class="matrix-input-group">
+                <input type="text" id="birthdate" class="matrix-input" placeholder="ДД.ММ.ГГГГ" maxlength="10">
+                <button class="btn" onclick="calculateMatrix()">Рассчитать</button>
+            </div>
+
+            <div class="matrix-result" id="matrix-result">
+                <div class="matrix-arcan" id="matrix-arcan-name">IV Император</div>
+                <p class="matrix-desc" id="matrix-arcan-desc">Ваша энергия — структура и власть. Вы рождены руководить, но остерегайтесь деспотизма.</p>
+                <p style="font-size: 0.9rem; color: #888; margin-bottom: 20px;">Это лишь 5% информации. Чтобы узнать, как этот аркан влияет на ваши деньги и отношения, жмите кнопку ниже.</p>
+                <a href="https://t.me/tarookst" target="_blank" class="btn" style="background: var(--gold-primary); color: #000;">Получить полную расшифровку</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="tarot" class="tarot-interactive">
+        <div class="section-header reveal">
+            <p>Синхронизация</p>
+            <h2>Вытянуть Карту Дня</h2>
+        </div>
+        
+        <div class="tarot-layout">
+            <div class="card-scene" onclick="drawCard()">
+                <div class="card-object" id="interactive-card">
+                    <div class="card-face card-face-front"></div>
+                    <div class="card-face card-face-back" id="card-image-display"></div>
+                </div>
+                <div style="text-align:center; margin-top: 20px;">
+                    <span class="hint-text" id="action-hint">Нажмите на колоду</span>
+                </div>
+            </div>
+            
+            <div class="reading-content" id="reading-display">
+                <h3 id="reading-title">Ваш Аркан</h3>
+                <p id="reading-text">Сформулируйте свой вопрос, отбросьте лишние мысли и кликните по карте, чтобы получить ответ от пространства.</p>
+                <button class="btn" onclick="drawCard()" id="redraw-btn" style="display:none;">Вытянуть другую</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="book-section" id="about-tarot">
+        <div class="section-header reveal">
+            <p>Древние знания</p>
+            <h2>Что такое Таро</h2>
+        </div>
+
+        <div class="book-scene reveal">
+            <div class="book-wrapper" id="magic-book">
+                
+                <!-- ЛИСТ 6 (Задняя обложка и стр 10) -->
+                <div class="book-leaf" id="leaf-6">
+                    <div class="leaf-page leaf-front" style="background-image: url('https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?w=600');">
+                        <div class="page-content">
+                            <h3>Будущее в ваших руках</h3>
+                            <p>Таро не выносит окончательного приговора. Карты показывают наиболее вероятный исход, исходя из ваших текущих энергий.</p>
+                            <p>Если прогноз вам не нравится — это повод изменить свои действия, а не впадать в отчаяние. Вы творец своей судьбы, а я лишь перевожу для вас знаки Вселенной.</p>
+                            <span class="page-number">10</span>
+                        </div>
+                    </div>
+                    <div class="leaf-page leaf-back cover-back" style="background-image: url('https://images.unsplash.com/photo-1633519183424-81eb16262b90?w=600');">
+                        <div class="page-content" style="align-items: center; justify-content: center;">
+                            <h2 style="color: var(--gold-primary); font-family: var(--font-heading);">ТароОкс</h2>
+                            <p style="margin-top: 10px;">Книга Судеб</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ЛИСТ 5 (стр 8 и 9) -->
+                <div class="book-leaf" id="leaf-5">
+                    <div class="leaf-page leaf-front" style="background-image: url('https://images.unsplash.com/photo-1518066000714-58c45f1a2c0a?w=600');">
+                        <div class="page-content">
+                            <h3>Мифы и Страхи</h3>
+                            <p>Самый частый страх: «А вдруг карты запрограммируют меня на негатив?» или «Это черная магия!»</p>
+                            <p>Таро не имеет отношения к черной магии. Это диагностический инструмент. Как рентген в медицине — он просто показывает то, что уже есть, чтобы вы могли это вылечить.</p>
+                            <span class="page-number">8</span>
+                        </div>
+                    </div>
+                    <div class="leaf-page leaf-back" style="background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?w=600');">
+                        <div class="page-content">
+                            <h3>Для чего приходят к Таро?</h3>
+                            <p>К картам обращаются на развилках судьбы: когда нужно сделать сложный выбор, когда рушатся отношения, когда бизнес не приносит дохода.</p>
+                            <p>Карты сэкономят вам годы жизни, показав истинное лицо ваших партнеров и реальные причины ваших неудач.</p>
+                            <span class="page-number">9</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ЛИСТ 4 (стр 6 и 7) -->
+                <div class="book-leaf" id="leaf-4">
+                    <div class="leaf-page leaf-front" style="background-image: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=600');">
+                        <div class="page-content">
+                            <h3>Младшие Арканы</h3>
+                            <p>Остальные 56 карт — это Младшие Арканы. Они показывают повседневные, бытовые ситуации: наши мысли (Мечи), эмоции (Кубки), действия (Жезлы) и финансы (Пентакли).</p>
+                            <p>Они раскрывают детали того, как именно глобальные события будут проигрываться в вашей рутине.</p>
+                            <span class="page-number">6</span>
+                        </div>
+                    </div>
+                    <div class="leaf-page leaf-back" style="background-image: url('https://images.unsplash.com/photo-1454789548928-9efd52dc4031?w=600');">
+                        <div class="page-content">
+                            <h3>Как работает синхроничность?</h3>
+                            <p>Знаменитый психолог Карл Юнг изучал Таро. Он ввел понятие «синхроничности» — неслучайных совпадений.</p>
+                            <p>Вытягивая карту, вы не делаете случайный выбор. Ваше подсознание уже знает ответ, а карта выступает лишь визуальным ключом, который этот ответ распаковывает.</p>
+                            <span class="page-number">7</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ЛИСТ 3 (стр 4 и 5) -->
+                <div class="book-leaf" id="leaf-3">
+                    <div class="leaf-page leaf-front" style="background-image: url('https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=600');">
+                        <div class="page-content">
+                            <h3>Путь Героя</h3>
+                            <p>Колода Таро состоит из 78 карт и делится на две большие части.</p>
+                            <p>22 Старших Аркана — это архетипы, глобальные уроки Души. Они описывают «Путь Героя» — от Шута (рождение, начало) до Мира (триумф, целостность). Выпадение Старшего Аркана говорит о кармической важности события.</p>
+                            <span class="page-number">4</span>
+                        </div>
+                    </div>
+                    <div class="leaf-page leaf-back" style="background-image: url('https://images.unsplash.com/photo-1504333638930-c8787321efa0?w=600');">
+                        <div class="page-content">
+                            <h3>Психология и Символизм</h3>
+                            <p>Современное Таро — это не гадание в цыганском шатре. Это мощный инструмент психоанализа.</p>
+                            <p>Каждая карта содержит архетипические символы, которые считываются нашим подсознанием в обход логического ума, вытаскивая наружу истинные страхи, блоки и желания.</p>
+                            <span class="page-number">5</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ЛИСТ 2 (стр 2 и 3) -->
+                <div class="book-leaf" id="leaf-2">
+                    <div class="leaf-page leaf-front" style="background-image: url('https://images.unsplash.com/photo-1464802686167-b939a6910659?w=600');">
+                        <div class="page-content">
+                            <h3>Что такое Таро?</h3>
+                            <p>Таро — это древнейшая система символов, ключ к подсознанию и энергоинформационному полю Вселенной.</p>
+                            <p>Это не просто "картинки для предсказаний". Это философская машина, описывающая устройство мира и путь человеческой души.</p>
+                            <span class="page-number">2</span>
+                        </div>
+                    </div>
+                    <div class="leaf-page leaf-back" style="background-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600');">
+                        <div class="page-content">
+                            <h3>Откуда они взялись?</h3>
+                            <p>Существует множество легенд. Одни говорят, что Таро — это зашифрованные знания жрецов Древнего Египта.</p>
+                            <p>Другие — что это наследие каббалистов. Исторически же первые классические колоды появились в Италии эпохи Возрождения как игра, которая позже раскрыла свой мистический потенциал.</p>
+                            <span class="page-number">3</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ЛИСТ 1 (Обложка и стр 1) -->
+                <div class="book-leaf" id="leaf-1">
+                    <div class="leaf-page leaf-front cover-front" onclick="openMagicBook()">
+                        <div class="cover-title">
+                            <h1>ТАРО</h1>
+                            <p>Нажмите, чтобы открыть</p>
+                        </div>
+                    </div>
+                    <div class="leaf-page leaf-back" style="background-image: url('https://images.unsplash.com/photo-1516339901601-2e1b62dc0c45?w=600');">
+                        <div class="page-content">
+                            <h3 style="font-size: 2rem; margin-top: 50px;">Введение</h3>
+                            <p style="font-style: italic;">"То, что мы называем судьбой, на самом деле — неосознанные нами выборы."</p>
+                            <p>Добро пожаловать в мир Таро. На этих страницах вы узнаете, как работает этот древний инструмент.</p>
+                            <span class="page-number">1</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="book-controls" id="book-controls">
+            <button class="book-btn" onclick="prevPage()">&#8592; Назад</button>
+            <button class="book-btn" onclick="nextPage()">Вперед &#8594;</button>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://www.youtube.com/@%D1%82%D0%B0%D1%80%D0%BE%D0%BE%D0%BA%D1%81" target="_blank">YouTube</a>
+            <a href="#">Telegram</a>
+            <a href="#">Instagram</a>
+        </div>
+        <p class="copyright">© 2026 Тищенко Оксана Геннадьевна. Все права защищены.</p>
+    </footer>
+
+    <div class="social-proof-popup" id="sp-popup">
+        <div class="sp-icon">✨</div>
+        <div class="sp-text">
+            <h5 id="sp-name">Анна из Москвы</h5>
+            <p id="sp-action">записалась на Годовую Матрицу</p>
+            <p style="font-size: 10px; color: var(--gold-primary); margin-top: 2px;">Только что</p>
+        </div>
+    </div>
+
+    <div class="wheel-floating-btn" onclick="openWheel()">🎁</div>
+
+    <div class="modal-overlay" id="wheel-modal">
+        <div class="modal-content wheel-modal-content">
+            <span class="close-modal" onclick="closeModal('wheel-modal')">&times;</span>
+            <h2 style="color: var(--gold-primary); font-size: 2.2rem; text-shadow: 0 0 20px rgba(212,175,55,0.3);">Колесо Судьбы ✨</h2>
+            <p style="color: #ccc; margin-top: 10px; font-weight: 300;">Испытайте удачу! Вращайте колесо, чтобы получить особый бонус к вашему индивидуальному раскладу.</p>
+            
+            <div class="wheel-container">
+                <div class="wheel-pointer"></div>
+                <div class="wheel" id="wheel">
+                    <div class="wheel-slice">Скидка 10%<br>на первый</div>
+                    <div class="wheel-slice">Доп.<br>Вопрос</div>
+                    <div class="wheel-slice">2 Расклада<br>+1 в дар</div>
+                    <div class="wheel-slice">Карта<br>Дня</div>
+                    <div class="wheel-slice">Скидка<br>20%</div>
+                    <div class="wheel-slice">Секретный<br>Бонус</div>
+                </div>
+            </div>
+
+            <button class="btn" id="spin-btn" onclick="spinWheel()" style="width: 100%; font-size: 16px; padding: 18px;">Вращать Колесо</button>
+            
+            <div class="wheel-result" id="wheel-result">
+                <h3 id="wheel-win-text">Вы выиграли: Скидка 20%</h3>
+                <p style="font-size: 0.95rem; color: #bbb; margin-bottom: 25px;">Сделайте скриншот этого экрана и отправьте мне в Telegram, чтобы закрепить бонус за вами!</p>
+                <a href="https://t.me/tarookst" target="_blank" class="btn" style="background: var(--gold-primary); color: #000; box-shadow: 0 0 20px rgba(212,175,55,0.4);">Забрать бонус в Telegram</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* === 1. АНИМАЦИЯ ПОЯВЛЕНИЯ ПРИ СКРОЛЛЕ (Intersection Observer) === */
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Анимация играет один раз
+                }
+            });
+        };
+
+        const revealOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const revealObserver = new IntersectionObserver(revealCallback, revealOptions);
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        /* === 2. ИЗМЕНЕНИЕ ШАПКИ ПРИ СКРОЛЛЕ === */
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        /* === 3. ЛОГИКА YOUTUBE СЛАЙДЕРА === */
+        const carousel = document.getElementById('carousel');
+        const btnPrev = document.getElementById('btn-prev');
+        const btnNext = document.getElementById('btn-next');
+
+        btnNext.addEventListener('click', () => {
+            carousel.scrollBy({ left: 400, behavior: 'smooth' });
+        });
+
+        btnPrev.addEventListener('click', () => {
+            carousel.scrollBy({ left: -400, behavior: 'smooth' });
+        });
+
+        /* === 4. ЛОГИКА ТАРО (СТАРШИЕ АРКАНЫ) === */
+        // Используем стабильные прямые ссылки на сканы Райдера-Уэйта (Wikimedia)
+        const baseUrl = "https://upload.wikimedia.org/wikipedia/commons/";
+        const majorArcana = [
+            { name: "Шут (0)", img: baseUrl + "9/90/RWS_Tarot_00_Fool.jpg", desc: "Начало нового пути. Карта призывает к спонтанности, доверию Вселенной и готовности шагнуть в неизвестность. Отбросьте страхи, сейчас время рисковать." },
+            { name: "Маг (I)", img: baseUrl + "d/de/RWS_Tarot_01_Magician.jpg", desc: "Абсолютный потенциал. У вас есть все необходимые ресурсы, знания и энергия для достижения цели. Действуйте решительно, вы творец своей реальности." },
+            { name: "Жрица (II)", img: baseUrl + "8/88/RWS_Tarot_02_High_Priestess.jpg", desc: "Голос интуиции. Не торопитесь с активными действиями. Ответ кроется внутри вас. Обращайте внимание на сны, знаки и скрытые мотивы окружающих." },
+            { name: "Императрица (III)", img: baseUrl + "d/d2/RWS_Tarot_03_Empress.jpg", desc: "Период изобилия и роста. Карта сулит успех в творчестве, гармонию в любви и материальное благополучие. Проявляйте заботу и наслаждайтесь процессом." },
+            { name: "Император (IV)", img: baseUrl + "c/c3/RWS_Tarot_04_Emperor.jpg", desc: "Структура и порядок. Для успеха необходимы дисциплина, логика и авторитет. Возьмите ответственность на себя, установите границы и действуйте по плану." },
+            { name: "Иерофант (V)", img: baseUrl + "8/8d/RWS_Tarot_05_Hierophant.jpg", desc: "Мудрость и традиции. Время учиться или обратиться за советом к наставнику. Придерживайтесь общепринятых правил и моральных ценностей." },
+            { name: "Влюбленные (VI)", img: baseUrl + "3/3a/RWS_Tarot_06_Lovers.jpg", desc: "Искренние чувства и важный выбор. Карта указывает на гармоничное партнерство, но также требует принять решение, руководствуясь сердцем, а не только разумом." },
+            { name: "Колесница (VII)", img: baseUrl + "9/9b/RWS_Tarot_07_Chariot.jpg", desc: "Стремительный рывок вперед. Вы сможете преодолеть любые препятствия благодаря силе воли и контролю над эмоциями. Победа близка." },
+            { name: "Сила (VIII)", img: baseUrl + "f/f5/RWS_Tarot_08_Strength.jpg", desc: "Мягкое превосходство. Истинная сила кроется не в агрессии, а в терпении, любви и умении укротить свои внутренние страхи и страсти." },
+            { name: "Отшельник (IX)", img: baseUrl + "4/4d/RWS_Tarot_09_Hermit.jpg", desc: "Время для уединения. Отстранитесь от суеты, чтобы заглянуть внутрь себя. Ответы придут через самопознание и временную изоляцию." },
+            { name: "Колесо Фортуны (X)", img: baseUrl + "3/3c/RWS_Tarot_10_Wheel_of_Fortune.jpg", desc: "Судьбоносные перемены. Запускается новый жизненный цикл. Удача на вашей стороне, примите изменения, которые несет Вселенная." },
+            { name: "Справедливость (XI)", img: baseUrl + "e/e0/RWS_Tarot_11_Justice.jpg", desc: "Объективность и карма. Что посеешь, то и пожнешь. Ситуация разрешится честно и законно. Сохраняйте хладнокровие и рациональность." },
+            { name: "Повешенный (XII)", img: baseUrl + "2/2b/RWS_Tarot_12_Hanged_Man.jpg", desc: "Пауза и переоценка. Ситуация требует взглянуть на вещи под другим углом. Возможна добровольная жертва малым ради чего-то большего." },
+            { name: "Смерть (XIII)", img: baseUrl + "d/d7/RWS_Tarot_13_Death.jpg", desc: "Глубокая трансформация. Старый этап окончательно завершен. Не бойтесь отпустить прошлое — это необходимо для зарождения нового." },
+            { name: "Умеренность (XIV)", img: baseUrl + "f/f5/RWS_Tarot_14_Temperance.jpg", desc: "Баланс и исцеление. Избегайте крайностей. Ситуация требует компромисса, спокойствия и нахождения «золотой середины»." },
+            { name: "Дьявол (XV)", img: baseUrl + "5/55/RWS_Tarot_15_Devil.jpg", desc: "Искушение и зависимости. Вы оказались в плену своих страхов, токсичных привязанностей или жажды власти. Будьте осторожны с манипуляциями." },
+            { name: "Башня (XVI)", img: baseUrl + "5/53/RWS_Tarot_16_Tower.jpg", desc: "Внезапное крушение иллюзий. Старые, нестабильные структуры рушатся. Это кризис, который очистит фундамент для построения настоящей жизни." },
+            { name: "Звезда (XVII)", img: baseUrl + "d/db/RWS_Tarot_17_Star.jpg", desc: "Надежда и вдохновение. После бури наступает ясность. Вы на правильном пути, Вселенная благоволит вашим мечтам. Период исцеления." },
+            { name: "Луна (XVIII)", img: baseUrl + "7/7f/RWS_Tarot_18_Moon.jpg", desc: "Сумерки подсознания. Ситуация неясна, есть скрытые факторы. Остерегайтесь самообмана, страхов и иллюзий. Доверяйте только интуиции." },
+            { name: "Солнце (XIX)", img: baseUrl + "1/17/RWS_Tarot_19_Sun.jpg", desc: "Абсолютный триумф. Период радости, счастья и ясности. Все складывается наилучшим образом. Наслаждайтесь своим успехом." },
+            { name: "Суд (XX)", img: baseUrl + "d/dd/RWS_Tarot_20_Judgment.jpg", desc: "Пробуждение и освобождение. Время подведения итогов и принятия важного, судьбоносного решения. Кармическое возрождение." },
+            { name: "Мир (XXI)", img: baseUrl + "f/ff/RWS_Tarot_21_World.jpg", desc: "Успешное завершение цикла. Вы достигли целостности, гармонии и заслуженной награды. Границы стираются, перед вами открыты все пути." }
+        ];
+
+        let isAnimating = false;
+        let cardIsFlipped = false;
+
+        function drawCard() {
+            if (isAnimating) return;
+            
+            const cardObj = document.getElementById('interactive-card');
+            const readingDisplay = document.getElementById('reading-display');
+            const titleEl = document.getElementById('reading-title');
+            const textEl = document.getElementById('reading-text');
+            const cardImgDisplay = document.getElementById('card-image-display');
+            const hint = document.getElementById('action-hint');
+            const redrawBtn = document.getElementById('redraw-btn');
+
+            isAnimating = true;
+
+            if (!cardIsFlipped) {
+                // Выбираем случайную карту
+                const card = majorArcana[Math.floor(Math.random() * majorArcana.length)];
+                
+                // Подготавливаем картинку на заднюю сторону карты (которая станет передней при перевороте)
+                cardImgDisplay.style.backgroundImage = `url('${card.img}')`;
+                
+                // Скрываем текущий текст
+                readingDisplay.classList.remove('visible');
+                hint.style.display = 'none';
+
+                // Запускаем переворот
+                setTimeout(() => {
+                    cardObj.classList.add('is-flipped');
+                }, 300);
+
+                // После переворота показываем текст
+                setTimeout(() => {
+                    titleEl.textContent = card.name;
+                    textEl.textContent = card.desc;
+                    redrawBtn.style.display = 'inline-block';
+                    readingDisplay.classList.add('visible');
+                    cardIsFlipped = true;
+                    isAnimating = false;
+                }, 1500);
+
+            } else {
+                // Прячем текст
+                readingDisplay.classList.remove('visible');
+                
+                // Переворачиваем карту обратно (рубашкой вверх)
+                setTimeout(() => {
+                    cardObj.classList.remove('is-flipped');
+                }, 400);
+
+                setTimeout(() => {
+                    titleEl.textContent = "Ваш Аркан";
+                    textEl.textContent = "Сформулируйте свой вопрос, отбросьте лишние мысли и кликните по карте, чтобы получить ответ от пространства.";
+                    redrawBtn.style.display = 'none';
+                    hint.style.display = 'inline-block';
+                    hint.textContent = "Нажмите на колоду";
+                    readingDisplay.classList.add('visible');
+                    cardIsFlipped = false;
+                    isAnimating = false;
+                }, 1600);
+            }
+        }
+        
+        /* === 5. ЛОГИКА ОТЗЫВОВ === */
+        const reviewsData = {
+            review1: {
+                name: "Елена, 34 года",
+                title: "«Муж внезапно подал на развод...»",
+                text: "Мы были в браке 8 лет, всё было идеально. А потом он просто собрал вещи и сказал, что уходит. Я была в отчаянии и не понимала, в чем дело. Оксана сделала глубокий расклад и увидела сильнейшее магическое воздействие со стороны его бывшей коллеги.<br><br><span>Что мы сделали:</span>Оксана провела диагностику, дала мне четкий алгоритм действий, как снять этот блок и гармонизировать наши энергии. Она не просто раскинула карты, она работала как антикризисный психолог.<br><br><span>Результат:</span>Через 3 недели он начал звонить. Сейчас мы снова живем вместе, и отношения стали даже теплее, чем до свадьбы. Оксана — мой ангел-хранитель!"
+            },
+            review2: {
+                name: "Михаил, 41 год",
+                title: "«Бизнес летел в пропасть, огромные долги»",
+                text: "Моя логистическая компания начала нести огромные убытки. Конкуренты давили, сделки срывались одна за другой. Я обратился к Оксане от безысходности, не особо веря в карты. Но то, что она мне сказала, повергло меня в шок.<br><br><span>Что мы сделали:</span>Карты четко указали на предательство со стороны моего партнера по бизнесу. Оксана описала его действия, финансовые махинации и дала совет, как экологично вывести его из состава учредителей, а также подсказала новую прибыльную нишу для смещения фокуса.<br><br><span>Результат:</span>Партнера убрал (все подтвердилось!), сменил вектор. За полгода закрыл все кассовые разрывы, прибыль выросла на 300%. Теперь перед любой крупной сделкой советуюсь только с Оксаной."
+            },
+            review3: {
+                name: "Анна, 28 лет",
+                title: "«Сценарий токсичных отношений»",
+                text: "Я постоянно притягивала к себе абьюзеров. Каждый новый парень был копией предыдущего: манипуляции, слезы, расставание. Оксана сделала матрицу судьбы и нашла жесткий кармический узел по женской линии.<br><br><span>Что мы сделали:</span>Мы разбирали мою проблему почти два часа. Выяснили, где я блокирую свою женскую энергию и почему соглашаюсь на роль жертвы. Расклад показал, что мне нужно изменить в поведении, чтобы разорвать этот порочный круг.<br><br><span>Результат:</span>Спустя 4 месяца я познакомилась с потрясающим мужчиной. Никаких качелей, только забота и уважение. Недавно он сделал мне предложение! Без Оксаны я бы так и бегала по кругу."
+            }
+        };
+
+        function openReview(id) {
+            const data = reviewsData[id];
+            document.getElementById('modal-reviewer-name').innerHTML = `${data.name} <span class="verified-badge">✔</span>`;
+            document.getElementById('modal-review-title').textContent = data.title;
+            document.getElementById('modal-review-text').innerHTML = data.text;
+            document.getElementById('review-modal').classList.add('active');
+            document.body.style.overflow = 'hidden'; // Блокируем скролл фона
+        }
+
+        /* === 6. ЛОГИКА КВИЗОВ (ОПРОСНИКОВ) === */
+        const quizzesData = {
+            relationships: {
+                title: "Расклад на Отношения",
+                questions: [
+                    { q: "В каком статусе ваши отношения сейчас?", opts: ["В браке / Живем вместе", "Встречаемся", "На паузе / Расстались", "Сложный треугольник"] },
+                    { q: "Какая главная проблема вас беспокоит?", opts: ["Охлаждение чувств, отдаление", "Частые ссоры и непонимание", "Подозрения в измене / Третий лишний", "Непонятно, к чему все идет"] },
+                    { q: "Что вы хотите получить от расклада?", opts: ["Узнать его истинные мысли и чувства", "Понять, есть ли будущее у союза", "Получить совет, как вернуть страсть", "Узнать, стоит ли спасать отношения"] }
+                ]
+            },
+            finance: {
+                title: "Финансовый Расклад",
+                questions: [
+                    { q: "Ваш текущий формат заработка?", opts: ["Работа в найме", "Собственный бизнес", "Фриланс / Работа на себя", "В поиске себя / Без работы"] },
+                    { q: "Какая финансовая проблема стоит острее всего?", opts: ["Уперся(лась) в финансовый потолок", "Долги, кредиты, деньги утекают", "Нет понимания, в какой нише развиваться", "Страх повышать чек / Начинать новое"] },
+                    { q: "Как быстро вы готовы внедрять изменения?", opts: ["Прямо сейчас, готов(а) действовать", "В течение ближайшего месяца", "Пока просто собираю информацию", "Зависит от того, что покажут карты"] }
+                ]
+            },
+            business: {
+                title: "Расклад на Бизнес",
+                questions: [
+                    { q: "На какой стадии сейчас ваш проект?", opts: ["Только идея, планирую запуск", "Стадия активного стартапа", "Стабильный бизнес, хочу масштабировать", "Бизнес в кризисе, падают доходы"] },
+                    { q: "В какой сфере требуется подсказка Таро?", opts: ["Проверка партнеров / сотрудников", "Оценка перспективности новой ниши", "Финансовые риски и инвестиции", "Общая стратегия выхода из кризиса"] },
+                    { q: "Формат консультации?", opts: ["Нужен быстрый конкретный ответ", "Нужна глубокая стратегическая сессия", "Сопровождение бизнеса на месяц"] }
+                ]
+            },
+            love: {
+                title: "Расклад на Любовь (Поиск)",
+                questions: [
+                    { q: "Как долго вы находитесь в поиске отношений?", opts: ["Меньше года", "От 1 до 3 лет", "Более 3 лет", "Только что вышла из прошлых отношений"] },
+                    { q: "Замечаете ли вы повторяющийся сценарий?", opts: ["Да, притягиваю один и тот же типаж", "Отношения быстро начинаются и быстро гаснут", "Меня воспринимают только как друга", "Нет, просто не могу встретить 'своего'"] },
+                    { q: "Какая ваша главная цель?", opts: ["Встретить партнера для семьи/брака", "Найти родственную душу для гармонии", "Просто легкие, приятные отношения", "Разобраться в своих блоках и страхах"] }
+                ]
+            }
+        };
+
+        let currentQuizType = '';
+        let currentStep = 0;
+
+        function openQuiz(type) {
+            currentQuizType = type;
+            currentStep = 0;
+            
+            document.getElementById('quiz-title').textContent = quizzesData[type].title;
+            document.getElementById('quiz-container').style.display = 'block';
+            document.getElementById('quiz-success').style.display = 'none';
+            
+            renderQuizStep();
+            document.getElementById('quiz-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function renderQuizStep() {
+            const data = quizzesData[currentQuizType];
+            const qData = data.questions[currentStep];
+            
+            // Обновляем прогресс бар
+            const progress = ((currentStep) / data.questions.length) * 100;
+            document.getElementById('quiz-progress-bar').style.width = `${progress}%`;
+
+            // Подставляем вопрос и варианты
+            document.getElementById('quiz-question').textContent = qData.q;
+            const optionsContainer = document.getElementById('quiz-options');
+            optionsContainer.innerHTML = ''; // очищаем старые
+            
+            qData.opts.forEach(opt => {
+                const btn = document.createElement('div');
+                btn.className = 'quiz-option';
+                btn.textContent = opt;
+                btn.onclick = () => nextQuizStep();
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function nextQuizStep() {
+            const data = quizzesData[currentQuizType];
+            currentStep++;
+            
+            if (currentStep < data.questions.length) {
+                renderQuizStep();
+            } else {
+                // Квиз завершен
+                document.getElementById('quiz-progress-bar').style.width = `100%`;
+                setTimeout(() => {
+                    document.getElementById('quiz-container').style.display = 'none';
+                    document.getElementById('quiz-success').style.display = 'block';
+                }, 300);
+            }
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+            document.body.style.overflow = 'auto'; // Возвращаем скролл
+        }
+
+        // Закрытие модалок по клику вне контента
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal-overlay')) {
+                closeModal(event.target.id);
+            }
+        }
+
+        /* === 7. ЛОГИКА ФАЗЫ ЛУНЫ === */
+        function initMoonPhase() {
+            const date = new Date();
+            const lp = 2551443; 
+            const now = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 20, 35, 0);
+            const new_moon = new Date(1970, 0, 7, 20, 35, 0);
+            const phase = ((now.getTime() - new_moon.getTime()) / 1000) % lp;
+            const days = Math.floor(phase / (24 * 3600));
+            
+            const moonIcon = document.getElementById('moon-icon');
+            const moonStatus = document.getElementById('moon-status');
+            const moonAdvice = document.getElementById('moon-advice');
+
+            if (days <= 2 || days >= 28) {
+                moonIcon.textContent = '🌑'; moonStatus.textContent = 'Новолуние';
+                moonAdvice.textContent = 'Старт новых проектов, закладка намерений.';
+            } else if (days > 2 && days < 14) {
+                moonIcon.textContent = '🌒'; moonStatus.textContent = 'Растущая Луна';
+                moonAdvice.textContent = 'Расклады на рост финансов и привлечение любви.';
+            } else if (days >= 14 && days <= 16) {
+                moonIcon.textContent = '🌕'; moonStatus.textContent = 'Полнолуние';
+                moonAdvice.textContent = 'Энергия на пике. Мощные расклады на судьбу.';
+            } else {
+                moonIcon.textContent = '🌘'; moonStatus.textContent = 'Убывающая Луна';
+                moonAdvice.textContent = 'Идеальное время для чисток и разрыва связей.';
+            }
+        }
+        initMoonPhase();
+
+        /* === 8. ИНДИКАТОР ЖИВОЙ ОЧЕРЕДИ (SOCIAL PROOF) === */
+        const spNames = ["Анна из Москвы", "Екатерина из СПБ", "Михаил из Дубая", "Ольга из Минска", "Алина из Сочи"];
+        const spActions = ["записалась на Годовую Матрицу", "оплатила Финансовый расклад", "забронировала место на диагностику", "записалась на Разбор Отношений"];
+        
+        setInterval(() => {
+            const popup = document.getElementById('sp-popup');
+            if(popup && popup.classList.contains('show')) return;
+            if(!popup) return;
+            
+            document.getElementById('sp-name').textContent = spNames[Math.floor(Math.random() * spNames.length)];
+            document.getElementById('sp-action').textContent = spActions[Math.floor(Math.random() * spActions.length)];
+            
+            popup.classList.add('show');
+            setTimeout(() => { popup.classList.remove('show'); }, 5000);
+        }, 18000);
+
+        /* === 9. МАТРИЦА СУДЬБЫ === */
+        const birthInputEl = document.getElementById('birthdate');
+        if (birthInputEl) {
+            birthInputEl.addEventListener('input', function (e) {
+                let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,2})(\d{0,4})/);
+                e.target.value = !x[2] ? x[1] : x[1] + '.' + x[2] + (x[3] ? '.' + x[3] : '');
+            });
+        }
+
+        const matrixArcanas = {
+            1: { n: "I Маг", d: "Энергия творца. У вас мощный потенциал материализовывать мысли. Главная задача — поверить в свои силы и не бояться начинать." },
+            2: { n: "II Жрица", d: "Энергия тайны и интуиции. Вы эмпат и дипломат. Важно доверять внутреннему голосу и избегать сплетен и двуличия." },
+            3: { n: "III Императрица", d: "Энергия плодородия. Для вас важен комфорт, статус и семья. Ваша карма — научиться любить себя и создавать красоту." },
+            4: { n: "IV Император", d: "Энергия власти и структуры. Вы прирожденный лидер и бизнесмен. Важно избегать деспотизма и чрезмерного контроля." },
+            5: { n: "V Иерофант", d: "Энергия закона и знаний. Вы отличный учитель и наставник. Избегайте гордыни и не поучайте тех, кто не просит." },
+            6: { n: "VI Влюбленные", d: "Энергия любви и выбора. Ваша суперсила — коммуникация. Главный урок — научиться делать выбор сердцем." },
+            7: { n: "VII Колесница", d: "Энергия движения и победы. Вы достигатор. Важно ставить четкие цели и не идти «по головам»." },
+            8: { n: "VIII Справедливость", d: "Энергия кармы. Все в вашей жизни подчинено причине и следствию. Ваша задача — быть честным и не осуждать других." },
+            9: { n: "IX Отшельник", d: "Энергия мудрости. Вы глубокий мыслитель. Важно передавать свой опыт, но не уходить в полную изоляцию от мира." },
+            10: { n: "X Колесо Фортуны", d: "Энергия потока. Вы везунчик по судьбе. Главное — не цепляться за стабильность и доверять цикличности жизни." },
+            11: { n: "XI Сила", d: "Энергия потенциала. Вы обладаете колоссальной внутренней силой и сексуальностью. Задача — управлять своими эмоциями." },
+            12: { n: "XII Повешенный", d: "Энергия служения. Вы видите мир иначе. Важно не уходить в позицию жертвы и научиться брать деньги за свой труд." },
+            13: { n: "XIII Смерть", d: "Энергия трансформации. Вы катализатор перемен. Ваша задача — легко отпускать старое и не бояться кризисов." },
+            14: { n: "XIV Умеренность", d: "Энергия баланса. Ваша сила в искусстве и компромиссах. Избегайте крайностей в еде, эмоциях и тратах." },
+            15: { n: "XV Дьявол", d: "Энергия проявления. Яркая харизма, деньги, магнетизм. Ваш главный экзамен — не поддаваться искушениями и зависимостям." },
+            16: { n: "XVI Башня", d: "Энергия духовного пробуждения. Жизнь будет рушить то, что построено на лжи. Ваша задача — строить жизнь на истинных ценностях." },
+            17: { n: "XVII Звезда", d: "Энергия творчества и популярности. Вы рождены блистать. Главное — не прятать свои таланты из-за синдрома самозванца." },
+            18: { n: "XVIII Луна", d: "Энергия магии и подсознания. У вас мощная визуализация. Страхи материализуются так же быстро, как и мечты. Думайте позитивно." },
+            19: { n: "XIX Солнце", d: "Энергия радости и богатства. Вы созданы для масштабных проектов и лидерства. Не впадайте в эгоизм и выгорание." },
+            20: { n: "XX Суд", d: "Энергия рода и яснознания. Вы связаны с предками. Ваша задача — проработать родовые программы и простить обиды." },
+            21: { n: "XXI Мир", d: "Энергия расширения. Вам открыты все границы. Ваша сфера — интернет, путешествия, глобальные проекты." },
+            22: { n: "0/XXII Шут", d: "Энергия свободы. Вы новатор и бунтарь. Важно жить легко, без привязок к материальному, и не бояться начинать с нуля." }
+        };
+
+        function calculateMatrix() {
+            const val = document.getElementById('birthdate').value;
+            if (val.length !== 10) { alert("Введите полную дату рождения (ДД.ММ.ГГГГ)"); return; }
+            
+            let day = parseInt(val.substring(0, 2));
+            if (day > 22) {
+                let sum = 0;
+                String(day).split('').forEach(d => sum += parseInt(d));
+                day = sum;
+            }
+            if (day === 0) day = 22;
+
+            const res = matrixArcanas[day];
+            if (res) {
+                document.getElementById('matrix-arcan-name').textContent = res.n;
+                document.getElementById('matrix-arcan-desc').textContent = res.d;
+                document.getElementById('matrix-result').style.display = 'block';
+            }
+        }
+
+        /* === 10. КОЛЕСО ФОРТУНЫ === */
+        let canSpin = true;
+        function openWheel() {
+            const modal = document.getElementById('wheel-modal');
+            if (modal) modal.classList.add('active');
+        }
+
+        function spinWheel() {
+            if(!canSpin) return;
+            canSpin = false;
+            
+            const wheel = document.getElementById('wheel');
+            const spinBtn = document.getElementById('spin-btn');
+            const resultBox = document.getElementById('wheel-result');
+            
+            // Прячем старый результат
+            resultBox.style.display = 'none';
+            spinBtn.style.opacity = '0.5';
+            
+            // Массив призов (Порядок строго соответствует секторам CSS: 1-й это 0-60deg, 2-й 60-120deg и т.д.)
+            // В CSS они идут по часовой стрелке, начиная от 12 часов.
+            const prizes = [
+                "Скидка 10% на первый расклад", 
+                "Бесплатный Доп. Вопрос", 
+                "Купи 2 Расклада, 3-й в подарок", 
+                "Бесплатная Карта Дня", 
+                "Скидка 20% на любую услугу", 
+                "Секретный Бонус (Совет от Рун)"
+            ];
+            
+            // Рандомим угол (от 6 до 10 полных оборотов + случайный сектор)
+            const extraSpins = Math.floor(Math.random() * 5) + 6; 
+            const randomDegree = Math.floor(Math.random() * 360);
+            const totalRotation = (extraSpins * 360) + randomDegree;
+            
+            wheel.style.transform = `rotate(${totalRotation}deg)`;
+            
+            setTimeout(() => {
+                // Вычисляем, какой сектор остановился под стрелкой (стрелка сверху на 0 градусов)
+                // Так как колесо крутится по часовой, сектора "наезжают" на стрелку в обратном порядке.
+                const actualDeg = totalRotation % 360;
+                
+                // Формула вычисления сектора (каждый сектор 60 градусов, +30 град смещение текста в CSS)
+                const sectorIndex = Math.floor(((360 - actualDeg + 30) % 360) / 60);
+                const wonPrize = prizes[sectorIndex];
+                
+                document.getElementById('wheel-win-text').textContent = `Вы выиграли: ${wonPrize}`;
+                resultBox.style.display = 'block';
+                spinBtn.textContent = "Энергия зафиксирована";
+            }, 5000); // 5 секунд анимация
+        }
+
+        /* === 12. ЛОГИКА 3D-КНИГИ === */
+        const bookWrapper = document.getElementById('magic-book');
+        const bookControls = document.getElementById('book-controls');
+        const totalLeaves = 6; // Всего листов (с 1 по 6)
+        let currentLeaf = 1;   // Текущий лист
+        let isBookOpen = false;
+
+        // Инициализация Z-индексов, чтобы листы лежали друг на друге правильно
+        function initBookZIndex() {
+            for (let i = 1; i <= totalLeaves; i++) {
+                document.getElementById('leaf-' + i).style.zIndex = totalLeaves - i + 1;
+            }
+        }
+        initBookZIndex();
+
+        // Открытие книги по клику на обложку
+        function openMagicBook() {
+            if (isBookOpen) return;
+            isBookOpen = true;
+            
+            // Сдвигаем книгу
+            bookWrapper.classList.add('is-open');
+            
+            // Показываем кнопки с задержкой
+            setTimeout(() => {
+                bookControls.classList.add('visible');
+            }, 800);
+
+            // Перелистываем первый лист (обложку)
+            flipLeaf(1, true);
+        }
+
+        // Кнопка Вперед
+        function nextPage() {
+            if (!isBookOpen) return;
+            if (currentLeaf < totalLeaves) {
+                currentLeaf++;
+                flipLeaf(currentLeaf, true);
+            }
+        }
+
+        // Кнопка Назад
+        function prevPage() {
+            if (!isBookOpen) return;
+            if (currentLeaf > 1) {
+                flipLeaf(currentLeaf, false);
+                currentLeaf--;
+            } else if (currentLeaf === 1) {
+                // Если мы на первом листе и жмем назад — закрываем книгу
+                flipLeaf(1, false);
+                bookWrapper.classList.remove('is-open');
+                bookControls.classList.remove('visible');
+                isBookOpen = false;
+            }
+        }
+
+        // Функция анимации и смены z-index при перевороте
+        function flipLeaf(leafIndex, forward) {
+            const leaf = document.getElementById('leaf-' + leafIndex);
+            
+            if (forward) {
+                leaf.classList.add('flipped');
+                // Когда лист перелистывается влево, его z-index должен стать высоким на левой стороне
+                setTimeout(() => {
+                    leaf.style.zIndex = leafIndex;
+                }, 300); // Меняем z-index посередине анимации (0.3 сек)
+            } else {
+                leaf.classList.remove('flipped');
+                // Возвращаем исходный z-index при возврате на правую сторону
+                setTimeout(() => {
+                    leaf.style.zIndex = totalLeaves - leafIndex + 1;
+                }, 300);
+            }
+        }
+
+    </script>
+</body>
+</html>
